@@ -1,0 +1,51 @@
+<template>
+  <div class="title">
+    <dl>
+      <dt>ID</dt>
+      <dd>{{ menu.id }}</dd>
+      <dt>Discipline</dt>
+      <dd>{{ menu.discipline }}</dd>
+      <dt>Rep</dt>
+      <dd>{{ menu.rep }}</dd>
+      <dt>Set</dt>
+      <dd>{{ menu.set }}</dd>
+      <dt>Calorie</dt>
+      <dd>{{ menu.calorie }}</dd>
+      <dt>Weight</dt>
+      <dd>{{ menu.weight }}</dd>
+      <dd>
+        <router-link to="/" class="link">Index</router-link>
+      </dd>
+    </dl>
+  </div>
+</template>
+
+<script>
+import axios from "axios";
+
+export default {
+  data: function() {
+    return {
+      menu: {}
+    };
+  },
+  computed: {
+    likeNumber() {
+      return this.$store.state.likeNumber;
+    }
+  },
+  mounted() {
+    axios
+      .get(`/api/v1/menu/${this.$route.params.id}.json`)
+      .then(response => (this.menu = response.data));
+  }
+};
+</script>
+
+<style scoped>
+.title {
+  border: dashed 2px #5b8bd0;
+  border-radius: 5px;
+  padding: 3px;
+}
+</style>
