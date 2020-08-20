@@ -1,5 +1,23 @@
 <template>
   <div class="title">
+    <header>
+      <nav id="gnav">
+        <ul class="nav-list">
+          <li class="nav-item">
+            <router-link to="/" class="link">Index</router-link>
+          </li>
+
+          <li class="nav-list-item">
+            <router-link :to="{ name: 'Edit', params: { id: menu.id } }">Edit</router-link>
+          </li>
+
+          <li class="nav-list-item">
+            <router-link to="/menu/new" class="link">New</router-link>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
     <dl>
       <dt>ID</dt>
       <dd>{{ menu.id }}</dd>
@@ -43,9 +61,15 @@ export default {
 </script>
 
 <style scoped>
-.title {
-  border: dashed 2px #5b8bd0;
-  border-radius: 5px;
-  padding: 3px;
+#gnav {
+  background-color: gray;
+}
+#gnav ul {
+  overflow: hidden;
+}
+
+#gnav li {
+  float: left;
+  width: 200px;
 }
 </style>

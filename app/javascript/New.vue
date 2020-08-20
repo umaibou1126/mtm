@@ -1,5 +1,7 @@
 <template>
-  <Pane :errors="errors" :menu="menu" @submit="createmenu"></Pane>
+  <div class="new">
+    <Pane :errors="errors" :menu="menu" @submit="createmenu"></Pane>
+  </div>
 </template>
 
 

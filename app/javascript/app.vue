@@ -1,5 +1,20 @@
 <template>
-  <div>
+  <div id="app">
+    <!-- <header>
+      <h1 class="headline">
+        <router-link to="/" class="link">Index</router-link>
+      </h1>
+      <nav id="gnav">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <router-link to="/" class="link">Index</router-link>
+        </li>
+        <li class="nav-list-item">
+          <router-link to="/menu/new" class="link">New</router-link>
+        </li>
+      </ul>
+      </nav>
+    </header>-->
     <router-view></router-view>
   </div>
 </template>
@@ -11,7 +26,6 @@ import Index from "Index.vue";
 import Detail from "Detail.vue";
 import New from "New.vue";
 import Edit from "Edit.vue";
-
 const router = new VueRouter({
   routes: [
     { path: "/", component: Index },
@@ -20,9 +34,22 @@ const router = new VueRouter({
     { path: "/menu/:id(\\d+)/edit", name: "Edit", component: Edit }
   ]
 });
-
 Vue.use(VueRouter);
 export default {
   router
 };
 </script>
+
+<style scoped>
+/* #gnav {
+  background-color: gray;
+}
+#gnav ul {
+  overflow: hidden;
+}
+
+#gnav li {
+  float: left;
+  width: 200px;
+} */
+</style>

@@ -1,5 +1,18 @@
 <template>
-  <div class="title">
+  <div class="index">
+    <header>
+      <nav id="gnav">
+        <ul class="nav-list">
+          <li class="nav-item">
+            <router-link to="/" class="link">Index</router-link>
+          </li>
+          <li class="nav-list-item">
+            <router-link to="/menu/new" class="link">New</router-link>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
     <div v-if="errors.length !=0">
       <ul v-for="e in errors" :key="e">
         <li>
@@ -103,9 +116,17 @@ export default {
 };
 </script>
 
-<style>
-/* .title {
-  color: $theme-gray;
-} */
+<style scoped>
+#gnav {
+  background-color: gray;
+}
+#gnav ul {
+  overflow: hidden;
+}
+
+#gnav li {
+  float: left;
+  width: 200px;
+}
 </style>
 
