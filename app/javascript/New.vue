@@ -1,5 +1,16 @@
 <template>
-  <div class="new">
+  <div>
+    <header>
+      <nav>
+        <ul>
+          <li>
+            <a>
+              <router-link to="/" class="link">HOME</router-link>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
     <Pane :errors="errors" :menu="menu" @submit="createmenu"></Pane>
   </div>
 </template>
@@ -44,4 +55,28 @@ export default {
 </script>
 
 <style scoped>
+nav ul {
+  display: table;
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+nav ul li {
+  display: table-cell;
+  min-width: 50px;
+  border-right: 1px solid #ccc;
+  border-bottom: 5px solid #ccc;
+}
+
+nav ul li a {
+  display: block;
+  width: 100%;
+  padding: 10px 0;
+  text-decoration: none;
+  color: #aaa;
+}
+nav ul li a:hover {
+  color: black;
+}
 </style>

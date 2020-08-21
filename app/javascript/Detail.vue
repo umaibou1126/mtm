@@ -1,18 +1,24 @@
 <template>
   <div class="title">
     <header>
-      <nav id="gnav">
-        <ul class="nav-list">
-          <li class="nav-item">
-            <router-link to="/" class="link">Index</router-link>
+      <nav>
+        <ul>
+          <li>
+            <a>
+              <router-link to="/" class="link">Index</router-link>
+            </a>
           </li>
 
-          <li class="nav-list-item">
-            <router-link :to="{ name: 'Edit', params: { id: menu.id } }">Edit</router-link>
+          <li>
+            <a>
+              <router-link :to="{ name: 'Edit', params: { id: menu.id } }">Edit</router-link>
+            </a>
           </li>
 
-          <li class="nav-list-item">
-            <router-link to="/menu/new" class="link">New</router-link>
+          <li>
+            <a>
+              <router-link to="/menu/new" class="link">New</router-link>
+            </a>
           </li>
         </ul>
       </nav>
@@ -31,9 +37,6 @@
       <dd>{{ menu.calorie }}</dd>
       <dt>Weight</dt>
       <dd>{{ menu.weight }}</dd>
-      <dd>
-        <router-link to="/" class="link">Index</router-link>
-      </dd>
     </dl>
   </div>
 </template>
@@ -61,15 +64,28 @@ export default {
 </script>
 
 <style scoped>
-#gnav {
-  background-color: gray;
+nav ul {
+  display: table;
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
-#gnav ul {
-  overflow: hidden;
+nav ul li {
+  display: table-cell;
+  min-width: 50px;
+  border-right: 1px solid #ccc;
+  border-bottom: 5px solid #ccc;
 }
 
-#gnav li {
-  float: left;
-  width: 200px;
+nav ul li a {
+  display: block;
+  width: 100%;
+  padding: 10px 0;
+  text-decoration: none;
+  color: #aaa;
+}
+nav ul li a:hover {
+  color: black;
 }
 </style>

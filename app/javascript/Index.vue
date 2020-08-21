@@ -1,9 +1,9 @@
 <template>
-  <div class="index">
+  <div>
     <header>
       <nav>
         <ul>
-          <li class="current">
+          <li>
             <a>
               <router-link to="/" class="link">HOME</router-link>
             </a>
@@ -43,18 +43,18 @@
           <td>{{ e.set }}</td>
           <td>{{ e.weight }}</td>
           <td>{{ e.calorie }}</td>
-          <td>
+          <!-- <td>
             <button @click="deleteTarget = e.id; showModal = true">Delete</button>
           </td>
           <td>
             <button v-on:click="increment">LGTM</button>
-          </td>
-          <td>
+          </td>-->
+          <!-- <td>
             <router-link :to="{ name: 'Edit', params: { id: e.id } }">Edit</router-link>
           </td>
           <td>
             <router-link :to="{ name: 'New', params: { id: e.id } }">New</router-link>
-          </td>
+          </td>-->
         </tr>
       </tbody>
     </table>
@@ -121,13 +121,9 @@ export default {
 </script>
 
 <style scoped>
-/* nav {
-  border-bottom: 5px solid #ccc;
-  position: relative;
-} */
 nav ul {
   display: table;
-  width: 80%;
+  width: 100%;
   text-align: center;
   border-collapse: collapse;
   border-spacing: 0;
@@ -138,9 +134,7 @@ nav ul li {
   border-right: 1px solid #ccc;
   border-bottom: 5px solid #ccc;
 }
-nav ul li:first-child {
-  border-left: 0px solid #ccc;
-}
+
 nav ul li a {
   display: block;
   width: 100%;
@@ -148,9 +142,38 @@ nav ul li a {
   text-decoration: none;
   color: #aaa;
 }
-/* nav ul li a:hover {
-  background-color: #f8e750;
-  border-bottom: 5px solid #f8e750;
-} */
+nav ul li a:hover {
+  color: black;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table tr {
+  border-bottom: solid 2px white;
+}
+
+table tr:last-child {
+  border-bottom: none;
+}
+table th {
+  position: relative;
+  text-align: left;
+  width: 5%;
+  background-color: #52c2d0;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+}
+
+table td {
+  text-align: left;
+  width: 5%;
+  text-align: center;
+  background-color: #eee;
+  padding: 10px 0;
+}
 </style>
 
