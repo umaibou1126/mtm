@@ -33,10 +33,10 @@
       <dd>{{ menu.rep }}</dd>
       <dt>Set</dt>
       <dd>{{ menu.set }}</dd>
-      <dt>Calorie</dt>
-      <dd>{{ menu.calorie }}</dd>
       <dt>Weight</dt>
       <dd>{{ menu.weight }}</dd>
+      <dt>Calorie</dt>
+      <dd>{{ menu.calorie }}</dd>
     </dl>
   </div>
 </template>
