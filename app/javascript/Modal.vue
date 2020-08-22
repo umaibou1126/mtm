@@ -13,8 +13,8 @@
 
           <div class="modal-footer">
             <slot name="footer">
-              <button class="modal-default-button" @click="$emit('ok')">OK</button>
-              <button class="modal-default-button" @click="$emit('cancel')">Cancel</button>
+              <button class="modal-default-button-yes" @click="$emit('ok')">OK</button>
+              <button class="modal-default-button-no" @click="$emit('cancel')">Cancel</button>
             </slot>
           </div>
         </div>
@@ -58,11 +58,39 @@ export default {};
   color: #42b983;
 }
 .modal-body {
-  margin: 20px 0;
+  margin: 50px 0;
+  font-size: 15px;
 }
-.modal-default-button {
-  float: right;
+.modal-footer {
+  font-size: 15px;
 }
+.modal-default-button-yes {
+  /* float: right; */
+  position: relative;
+  display: inline-block;
+  padding: 0.25em 0.5em;
+  text-decoration: none;
+  color: #ff3366;
+  background: #fff; /*色*/
+  border: solid 1px#ddd; /*線色*/
+  border-radius: 4px;
+  box-shadow: inset 0 1px 0 #ddd;
+  text-shadow: 0 1px 0 #ddd;
+}
+
+.modal-default-button-no {
+  position: relative;
+  display: inline-block;
+  padding: 0.25em 0.5em;
+  text-decoration: none;
+  color: black;
+  background: #fff; /*色*/
+  border: solid 1px#ddd; /*線色*/
+  border-radius: 4px;
+  box-shadow: inset 0 1px 0 #ddd;
+  text-shadow: 0 1px 0 #ddd;
+}
+
 .modal-enter {
   opacity: 0;
 }

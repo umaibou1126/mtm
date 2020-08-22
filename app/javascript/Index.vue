@@ -33,6 +33,7 @@
           <th>Set</th>
           <th>Weight</th>
           <th>Calorie</th>
+          <th>Delete</th>
         </tr>
         <tr v-for="e in menu" :key="e.id">
           <td>
@@ -43,11 +44,10 @@
           <td>{{ e.set }}</td>
           <td>{{ e.weight }}</td>
           <td>{{ e.calorie }}</td>
-          <!-- <td>
-            <button @click="deleteTarget = e.id; showModal = true">Delete</button>
-          </td>
           <td>
-            <button v-on:click="increment">LGTM</button>
+            <button @click="deleteTarget = e.id; showModal = true">削除</button>
+          </td>
+          <!-- <button v-on:click="increment">LGTM</button>
           </td>-->
           <!-- <td>
             <router-link :to="{ name: 'Edit', params: { id: e.id } }">Edit</router-link>
@@ -59,7 +59,7 @@
       </tbody>
     </table>
     <modal v-if="showModal" @cancel="showModal = false" @ok="deletemenu(); showModal = false;">
-      <div slot="body">Are you sure?</div>
+      <div slot="body">削除してよろしいですか？</div>
     </modal>
   </div>
 </template>
@@ -152,7 +152,14 @@ table {
 }
 
 table tr {
-  border-bottom: solid 2px white;
+  border-bottom: solid 1px #ccc;
+}
+
+table tr:nth-child(even) {
+  background: white;
+}
+table tr:nth-child(odd) {
+  background: #eee;
 }
 
 table tr:last-child {
@@ -162,18 +169,57 @@ table th {
   position: relative;
   text-align: left;
   width: 5%;
-  background-color: #52c2d0;
+  background-color: black;
+  /* background-color: #33cc66; */
   color: white;
   text-align: center;
   padding: 10px 0;
+  font-family: "ＭＳ ゴシック", sans-serif;
+  font-size: 14px;
 }
 
 table td {
   text-align: left;
   width: 5%;
   text-align: center;
-  background-color: #eee;
+  /* background-color: #eeffff; */
   padding: 10px 0;
+  color: black;
+  /* font-weight: bold; */
+  font-family: "ＭＳ ゴシック", sans-serif;
+  font-size: 14px;
+}
+
+button {
+  /* -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 0;
+  border-radius: 0;
+  background: #cd5c5c;
+  color: white;
+  font-size: 16px; */
+  position: relative;
+  display: inline-block;
+  padding: 0.25em 0.5em;
+  text-decoration: none;
+  color: #ff3366;
+  background: white; /*色*/
+  border: solid 1px#ddd; /*線色*/
+  border-radius: 4px;
+  /* box-shadow: inset 0 1px 0 #ddd; */
+  text-shadow: 0 1px 0 #fff;
+  font-size: 15px;
+}
+
+button:hover {
+  border: solid 1px #03a9f4;
+  box-shadow: none;
+  text-shadow: none;
+}
+button:focus {
+  outline: none;
+  /* box-shadow: 0 0 0 4px #cbd6ee; */
 }
 </style>
 
