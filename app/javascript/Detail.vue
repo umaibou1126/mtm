@@ -5,7 +5,7 @@
         <ul>
           <li>
             <a>
-              <router-link to="/" class="link">Index</router-link>
+              <router-link to="/" class="link">HOME</router-link>
             </a>
           </li>
 
@@ -87,5 +87,33 @@ nav ul li a {
 }
 nav ul li a:hover {
   color: black;
+}
+
+dl {
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  border-top: none;
+  background: #ddd;
+}
+
+dt {
+  width: 30%;
+  float: left;
+  padding: 10px;
+  border-top: 1px solid #ccc;
+  box-sizing: border-box;
+  font-family: "ＭＳ ゴシック", sans-serif;
+  font-size: 14px;
+}
+
+dd {
+  margin-left: 30%;
+  padding: 10px;
+  border-left: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  background: #fff;
+  font-family: "ＭＳ ゴシック", sans-serif;
+  font-size: 14px;
 }
 </style>
