@@ -26,12 +26,17 @@ import Index from "Index.vue";
 import Detail from "Detail.vue";
 import New from "New.vue";
 import Edit from "Edit.vue";
+import Signup from "Signup.vue";
+import Signin from "Signin.vue";
+
 const router = new VueRouter({
   routes: [
-    { path: "/", component: Index },
+    { path: "/", name: "Index", component: Index },
     { path: "/menu/:id(\\d+)", name: "Detail", component: Detail },
     { path: "/menu/new", name: "New", component: New },
-    { path: "/menu/:id(\\d+)/edit", name: "Edit", component: Edit }
+    { path: "/menu/:id(\\d+)/edit", name: "Edit", component: Edit },
+    { path: "/signup", name: "Signup", component: Signup },
+    { path: "/signin", name: "Signin", component: Signin }
   ]
 });
 Vue.use(VueRouter);

@@ -1,20 +1,22 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-//import router from '../router/router.js'
-//import axios from 'axios'
+import router from '../router/router.js'
+import axios from 'axios'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        likeNumber: 0
-    },
-    getters: {
-        count: state => state.likeNumber + 1
+        signedIn: 'false'
     },
     mutations: {
-        increment(state, number) {
-            state.likeNumber += number;
+        fetchSignedIn(state) {
+            state.signedIn = !!localStorage.signedIn
+        },
+    },
+    actions: {
+        doFetchSignedIn({ commit }) {
+            commit('fetchSignedIn')
         }
     }
-});
+})

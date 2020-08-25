@@ -13,6 +13,9 @@
               <router-link to="/menu/new" class="link">New</router-link>
             </a>
           </li>
+          <li>
+            <router-link to="/signin" v-if="signedIn" @click="signOut">Signout</router-link>
+          </li>
         </ul>
       </nav>
     </header>
@@ -70,7 +73,17 @@ import Modal from "Modal.vue";
 import Detail from "Detail.vue";
 import Edit from "Edit.vue";
 import New from "New.vue";
+import { mapState } from "vuex";
+import Signup from "Signup.vue";
+import Signin from "Signin.vue";
+
 export default {
+  name: "Index",
+  computed: mapState(["signedIn"]),
+  mounted: function() {
+    this.$store.dispatch("doFetchSignedIn");
+  },
+
   components: {
     Modal,
     Detail,
@@ -93,6 +106,21 @@ export default {
     increment() {
       this.$store.commit("increment", 1);
     },
+    setError(error, text) {
+      this.error =
+        (error.response && error.response.data && error.response.data.error) ||
+        text;
+    },
+    signOut() {
+      this.$http.secured
+        .delete(`/api/v1/signin`)
+        .then(response => {
+          delete localStorage.csrf;
+          delete localStorage.signedIn;
+        })
+        .catch(error => this.setError(error, "Cannot sign out"));
+    },
+
     deletemenu: function() {
       if (this.deleteTarget <= 0) {
         console.warn("deleteTarget should be grater than zero.");
