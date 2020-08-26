@@ -100,7 +100,7 @@ export default {
     },
     checkSignedIn() {
       if (localStorage.signedIn) {
-        this.$router.push("/");
+        this.$router.replace("/");
       }
     }
   }

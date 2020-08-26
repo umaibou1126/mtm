@@ -88,7 +88,9 @@ export default {
     Modal,
     Detail,
     Edit,
-    New
+    New,
+    Signup,
+    Signin
   },
   data: function() {
     return {
