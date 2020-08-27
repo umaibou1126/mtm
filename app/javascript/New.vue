@@ -8,6 +8,16 @@
               <router-link to="/" class="link">HOME</router-link>
             </a>
           </li>
+          <li>
+            <a>
+              <router-link to="/signin" class="link">会員ログイン</router-link>
+            </a>
+          </li>
+          <li>
+            <a>
+              <router-link to="/signup" class="link">新規会員登録</router-link>
+            </a>
+          </li>
         </ul>
       </nav>
     </header>
@@ -61,10 +71,11 @@ nav ul {
   text-align: center;
   border-collapse: collapse;
   border-spacing: 0;
+  justify-content: space-between;
 }
 nav ul li {
   display: table-cell;
-  min-width: 50px;
+  width: 33.3%;
   border-right: 1px solid #ccc;
   border-bottom: 5px solid #ccc;
 }

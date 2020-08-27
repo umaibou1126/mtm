@@ -1,15 +1,36 @@
 <template>
-  <div class="container">
-    <h1 class="#f3e5f5 purple lighten-5 center">Sign UP</h1>
-    <form class="col" @submit.prevent="signup">
-      <div class="text-red" v-if="error">{{ error }}</div>
-      <div class="row">
-        <div class="input-field">
+  <div>
+    <header>
+      <nav>
+        <ul>
+          <li>
+            <a>
+              <router-link to="/" class="link">トレーニング一覧</router-link>
+            </a>
+          </li>
+          <li>
+            <a>
+              <router-link to="/menu/new" class="link">トレーニング新規登録</router-link>
+            </a>
+          </li>
+          <li>
+            <a>
+              <router-link to="/signin" class="link">会員ログイン</router-link>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="form">
+      <form class="col" @submit.prevent="signup">
+        <div class="text-red" v-if="error">{{ error }}</div>
+        <div class="text-input">
           <input placeholder="Name" type="text" class="validate" v-model="name" required="required" />
+          <span class="separator"></span>
         </div>
-      </div>
-      <div class="row">
-        <div class="input-field">
+
+        <div class="text-input">
           <input
             placeholder="Email"
             type="text"
@@ -17,10 +38,10 @@
             v-model="email"
             required="required"
           />
+          <span class="separator"></span>
         </div>
-      </div>
-      <div class="row">
-        <div class="input-field">
+
+        <div class="text-input">
           <input
             placeholder="Password"
             type="text"
@@ -28,10 +49,10 @@
             v-model="password"
             required="required"
           />
+          <span class="separator"></span>
         </div>
-      </div>
-      <div class="row">
-        <div class="input-field">
+
+        <div class="text-input">
           <input
             placeholder="Password_confirmation"
             type="text"
@@ -39,14 +60,12 @@
             v-model="password_confirmation"
             required="required"
           />
+          <span class="separator"></span>
         </div>
-      </div>
 
-      <button type="submit" class="btn waves-effect waves-light">Sign Up</button>
-      <div>
-        <router-link to="/signin" class="btn link-grey">Sign In</router-link>
-      </div>
-    </form>
+        <button type="submit">会員登録</button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -106,3 +125,91 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+nav ul {
+  display: table;
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+  border-spacing: 0;
+  justify-content: space-between;
+}
+nav ul li {
+  display: table-cell;
+  width: 33.3%;
+  border-right: 1px solid #ccc;
+  border-bottom: 5px solid #ccc;
+}
+
+nav ul li a {
+  display: block;
+  width: 100%;
+  padding: 10px 0;
+  text-decoration: none;
+  color: #aaa;
+}
+nav ul li a:hover {
+  color: black;
+}
+
+.form {
+  width: 400px;
+  margin: 0 auto;
+  text-align: left;
+  margin-top: 10em;
+}
+
+.form form .text-input {
+  overflow: hidden;
+  margin-bottom: 0.875em;
+}
+
+.form form input {
+  width: 100%;
+  padding: 1em 0 12px;
+  padding-left: 0;
+  background: none;
+  color: black;
+  font-size: 1.2em;
+  font-weight: 400;
+  border: none;
+  border-bottom: 1px solid #999;
+}
+
+.form form input:focus + .separator {
+  transform: scaleX(1) translateY(-2px);
+  opacity: 1;
+}
+
+.separator {
+  height: 3px;
+  width: 100%;
+  background: #3599ff;
+  display: block;
+  transform: scaleX(0) translateY(-2px);
+  transform-origin: 50%;
+  opacity: 0;
+  transition: all 0.15s linear;
+}
+
+.separator:focus {
+  outline-color: transparent;
+  outline-style: none;
+}
+
+.form form button {
+  background: #b5cd60;
+  border: 0;
+  width: 100%;
+  height: 40px;
+  border-radius: 3px;
+  color: white;
+  cursor: pointer;
+  /* transition: background 0.3s ease-in-out; */
+}
+
+.form form button:hover {
+  background: #16aa56;
+}
+</style>

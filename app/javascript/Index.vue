@@ -5,16 +5,18 @@
         <ul>
           <li>
             <a>
-              <router-link to="/" class="link">HOME</router-link>
+              <router-link to="/" class="link">トレーニング一覧</router-link>
             </a>
           </li>
           <li>
             <a>
-              <router-link to="/menu/new" class="link">New</router-link>
+              <router-link to="/menu/new" class="link">トレーニング新規登録</router-link>
             </a>
           </li>
           <li>
-            <router-link to="/signin" v-if="signedIn" @click="signOut">Signout</router-link>
+            <a>
+              <router-link to="/signin" v-if="signedIn" @click="signOut">サインアウト</router-link>
+            </a>
           </li>
         </ul>
       </nav>
@@ -31,12 +33,12 @@
       <tbody>
         <tr>
           <th>ID</th>
-          <th>Discipline</th>
-          <th>Rep</th>
-          <th>Set</th>
-          <th>Weight</th>
-          <th>Calorie</th>
-          <th>Delete</th>
+          <th>種目</th>
+          <th>レップ数</th>
+          <th>セット</th>
+          <th>重量</th>
+          <th>消費カロリー</th>
+          <th>削除</th>
         </tr>
         <tr v-for="e in menu" :key="e.id">
           <td>
@@ -160,7 +162,7 @@ nav ul {
 }
 nav ul li {
   display: table-cell;
-  min-width: 50px;
+  width: 33.3%;
   border-right: 1px solid #ccc;
   border-bottom: 5px solid #ccc;
 }

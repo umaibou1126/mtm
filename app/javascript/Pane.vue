@@ -27,7 +27,9 @@
       <label>Calorie</label>
       <input v-model="menu.calorie" type="text" />
     </div>
-    <button type="submit">Commit</button>
+    <div class="button">
+      <button type="submit">登録</button>
+    </div>
   </form>
 </template>
 
@@ -74,36 +76,23 @@ label {
   font-size: 14px;
   font-weight: bold;
 }
+.button {
+  text-align: center;
+}
 
-button {
-  /* -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+form button {
+  background: #b5cd60;
   border: 0;
-  border-radius: 0;
-  background: #cd5c5c;
+  width: 40%;
+  height: 40px;
+  border-radius: 3px;
   color: white;
-  font-size: 16px; */
-  position: relative;
-  display: inline-block;
-  padding: 0.25em 0.5em;
-  text-decoration: none;
-  color: #03a9f4;
-  background: white; /*色*/
-  border: solid 1px#ddd; /*線色*/
-  border-radius: 4px;
-  /* box-shadow: inset 0 1px 0 #ddd; */
-  text-shadow: 0 1px 0 #fff;
-  font-size: 15px;
+  cursor: pointer;
+  text-align: center;
+  /* transition: background 0.3s ease-in-out; */
 }
 
-button:hover {
-  border: solid 1px #03a9f4;
-  box-shadow: none;
-  text-shadow: none;
-}
-button:focus {
-  outline: none;
-  /* box-shadow: 0 0 0 4px #cbd6ee; */
+form button:hover {
+  background: #16aa56;
 }
 </style>

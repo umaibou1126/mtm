@@ -5,19 +5,19 @@
         <ul>
           <li>
             <a>
-              <router-link to="/" class="link">HOME</router-link>
+              <router-link to="/" class="link">トレーニング一覧</router-link>
             </a>
           </li>
 
           <li>
             <a>
-              <router-link :to="{ name: 'Edit', params: { id: menu.id } }">Edit</router-link>
+              <router-link :to="{ name: 'Edit', params: { id: menu.id } }">トレーニング編集</router-link>
             </a>
           </li>
 
           <li>
             <a>
-              <router-link to="/menu/new" class="link">New</router-link>
+              <router-link to="/menu/new" class="link">トレーニング新規登録</router-link>
             </a>
           </li>
         </ul>
@@ -27,15 +27,15 @@
     <dl>
       <dt>ID</dt>
       <dd>{{ menu.id }}</dd>
-      <dt>Discipline</dt>
+      <dt>種目</dt>
       <dd>{{ menu.discipline }}</dd>
-      <dt>Rep</dt>
+      <dt>レップ数</dt>
       <dd>{{ menu.rep }}</dd>
-      <dt>Set</dt>
+      <dt>セット</dt>
       <dd>{{ menu.set }}</dd>
-      <dt>Weight</dt>
+      <dt>重量</dt>
       <dd>{{ menu.weight }}</dd>
-      <dt>Calorie</dt>
+      <dt>消費カロリー</dt>
       <dd>{{ menu.calorie }}</dd>
     </dl>
   </div>
