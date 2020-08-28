@@ -1,22 +1,5 @@
 <template>
-  <div id="app">
-    <!-- <header>
-      <h1 class="headline">
-        <router-link to="/" class="link">Index</router-link>
-      </h1>
-      <nav id="gnav">
-      <ul class="nav-list">
-        <li class="nav-item">
-          <router-link to="/" class="link">Index</router-link>
-        </li>
-        <li class="nav-list-item">
-          <router-link to="/menu/new" class="link">New</router-link>
-        </li>
-      </ul>
-      </nav>
-    </header>-->
-    <router-view></router-view>
-  </div>
+  <router-view></router-view>
 </template>
 
 <script>
