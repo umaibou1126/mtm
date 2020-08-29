@@ -13,6 +13,7 @@ import Signup from "Signup.vue";
 import Signin from "Signin.vue";
 
 const router = new VueRouter({
+  mode: "history",
   routes: [
     { path: "/", name: "Index", component: Index },
     { path: "/menu/:id(\\d+)", name: "Detail", component: Detail },
