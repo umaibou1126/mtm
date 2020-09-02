@@ -2,19 +2,19 @@
 
 ## 使用技術
 
-#### バックエンド
+### バックエンド
 
  - Ruby 2.7.1
  - Rails 6.0.3
  - MySQL 5.7
  - Nginx 1.19.0
  
-#### フロントエンド
+### フロントエンド
  
  - Vue.js 2.6.1
  - Vue-CLI 4.4.1
 
-#### インフラ
+### インフラ
  
  - AWS（EC2 | RDS | VPC | ELB | Route53 | IAM）
  - Docker|Docker Compose
