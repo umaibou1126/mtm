@@ -17,5 +17,5 @@
 ### インフラ
  
  - AWS（EC2 | RDS | VPC | ELB | Route53 | IAM）
- - Docker|Docker Compose
+ - Docker | Docker Compose
  
