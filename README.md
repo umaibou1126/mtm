@@ -1,26 +1,21 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
+## 使用技術
 
-* Ruby version
+### バックエンド
 
-* System dependencies
+ - Ruby 2.7.1
+ - Rails 6.0.3
+ - MySQL 5.7
+ - Nginx 1.19.0
+ 
+### フロントエンド
+ 
+ - Vue.js 2.6.1
+ - Vue-CLI 4.4.1
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-# portfolio
-# mtm
+### インフラ
+ 
+ - AWS（EC2 / RDS / VPC / ALB / ACM / Route53 / IAM）
+ - Docker / Docker Compose
+ 
