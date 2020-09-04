@@ -1,24 +1,27 @@
-FROM ruby:2.7.1
+FROM ruby:2.7.1-alpine3.10
+ENV LANG C.UTF-8
+ENV TZ Asia/Tokyo
 
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && apt-get update && \
-    apt-get install -y nodejs --no-install-recommends && rm -rf /var/lib/apt/lists/*
+ENV BASE_PACKAGES="alpine-sdk build-base tzdata" \
+    WEBPACKER_PACKAGES="python2 yarn nodejs-current nodejs-npm" \
+    BUILD_PACKAGE="mysql-client mysql-dev" \
+    FAVORITE_PACKAGE="less"
 
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev
-RUN apt-get update && apt-get install -y curl apt-transport-https wget && \
-    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-    apt-get update && apt-get install -y yarn
-
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
-    apt-get install nodejs
-
-RUN yarn add node-sass
+RUN apk update && \
+    apk upgrade && \
+    apk --update --no-cache add \
+    ${BASE_PACKAGES} \
+    ${WEBPACKER_PACKAGES} \
+    ${BUILD_PACKAGE} \
+    ${FAVORITE_PACKAGE}
 
 RUN mkdir /app
 WORKDIR /app
-COPY Gemfile /app/Gemfile
-COPY Gemfile.lock /app/Gemfile.lock
+COPY Gemfile Gemfile.lock /app/
 
-RUN gem install bundler
-RUN bundle install
+RUN bundle install --jobs=4
 
+RUN yarn install
+ENV BUNDLE_GEMFILE='/app/Gemfile'
+COPY . /app
+RUN mkdir -p tmp/sockets

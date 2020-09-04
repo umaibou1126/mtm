@@ -1,3 +1,7 @@
-FROM alpine:3.6
+FROM nginx:1.15.8
 
-RUN apk update && apk add --no-cache nginx
+RUN rm -f /etc/nginx/conf.d/*
+
+ADD nginx.conf /etc/nginx/conf.d/app.conf
+
+CMD /usr/sbin/nginx -g 'daemon off;' -c /etc/nginx/nginx.conf
