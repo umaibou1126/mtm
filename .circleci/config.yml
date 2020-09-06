@@ -1,0 +1,39 @@
+version: 2.1
+
+commands:
+  bundle-installation:
+    description: "checkout and bundle installation and caching"
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "Gemfile.lock" }}
+            - v1-dependencies-
+      - run: bundle install --jobs=4 --retry=3 --path vendor/bundle
+      - save_cache:
+          paths:
+            - ./vendor/bundle
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+
+  yarn-installation:
+    description: "yarn installation and caching"
+    steps:
+      - restore_cache:
+          keys:
+            - v1-yarn-{{ checksum "yarn.lock" }}
+            - v1-yarn-
+      - run: yarn install
+      - save_cache:
+          key: v1-yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - ./node_modules
+jobs:
+  rubocop:
+    docker:
+      - image: circleci/ruby:2.6.5-node-browsers-legacy
+    working_directory: ~/memorizer
+    steps:
+      - bundle-installation
+      - run:
+          name: Rubocop
+          command: bundle exec rubocop
