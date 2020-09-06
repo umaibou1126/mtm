@@ -1,4 +1,3 @@
-FROM debian
 FROM ruby:2.7.1
 FROM nginx:1.15.8
 FROM mysql:5.7
