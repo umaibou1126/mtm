@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: app/Dockerfile
     volumes:
-      - .:/app
+      - ./git:/app
     depends_on:
       - mysql
     tty: true
