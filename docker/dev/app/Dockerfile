@@ -16,7 +16,3 @@ COPY ./app/nginx/nginx.conf /etc/nginx/conf.d/default.conf
 RUN mkdir /app
 WORKDIR /app
 COPY . /app
-# RUN rm -f /etc/nginx/conf.d/*
-# ADD nginx/nginx.conf /etc/nginx/conf.d/app.conf
-# CMD /usr/sbin/nginx -g 'daemon off;' -c /etc/nginx/nginx.conf
-
