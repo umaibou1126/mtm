@@ -1,6 +1,6 @@
 class Api::V1::MenuController < ApplicationController
-  protect_from_forgery
-  # before_action :authenticate_user
+ protect_from_forgery
+  before_action :authenticate_user
   before_action :set_menu, only: %i[show update destroy]
 
   rescue_from Exception, with: :render_status_500

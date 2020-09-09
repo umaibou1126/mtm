@@ -1,6 +1,6 @@
 class Api::V1::SessionsController < ApplicationController
   before_action :authorize_access_request!, only: [:destroy]
-  protect_from_forgery except: %i[create destroy]
+ protect_from_forgery except: %i[create destroy]
 
   def create
     user = User.find_by!(email: params[:email])
