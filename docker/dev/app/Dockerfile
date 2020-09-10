@@ -8,17 +8,38 @@ RUN mkdir -p $APP_ROOT
 RUN mkdir -p /root/tmp
 WORKDIR $APP_ROOT
 
-# Node.jsパッケージインストール
-RUN apt-get update -qq && apt-get install -y build-essential nodejs
-
-# Nginx, supervisorインストール
-RUN apt-get update && apt-get install -y openssh-server supervisor nginx vim git
+# Node.js、Nginx, supervisorインストール
+RUN apt-get update -y && \
+    apt-get upgrade -y && \
+    apt-get install -y --no-install-recommends \
+    bash \
+    build-essential \
+    git \
+    libcurl4-openssl-dev \
+    libghc-yaml-dev \
+    libqt5webkit5-dev \
+    libxml2-dev \
+    libxslt-dev \
+    libyaml-dev \
+    linux-headers-amd64 \
+    default-mysql-client \
+    nginx \
+    nodejs \
+    openssl \
+    ruby-dev \
+    ruby-json \
+    tzdata \
+    vim \
+    supervisor \
+    zlib1g-dev && \
+    apt-get clean -y && \
+    rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 
 # supervisor用logディレクトリ作成
 RUN mkdir -p /var/run/apache2 /var/run/sshd /var/log/supervisor
 
 # app.conf supervisord.conf作成
-COPY app/nginx/nginx.conf /etc/nginx/conf.d/app.conf
+COPY app/nginx/nginx.conf /etc/nginx/nginx.conf
 COPY app/supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 
