@@ -10,11 +10,9 @@ default: &default
   collation: utf8mb4_bin
   encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  host: <%= ENV.fetch("APP_DATABASE_HOST") { '127.0.0.1' } %>
-  port: <%= ENV.fetch("APP_DATABASE_PORT") { '3306' } %>
-  username: <%= ENV.fetch("APP_DATABASE_USERNAME") { 'root' } %>
-  password: <%= ENV.fetch("APP_DATABASE_PASSWORD") { 'password' } %>
-  timeout: 5000
+  host: <%= ENV.fetch("MYSQL_HOST") { 'db' } %>
+  username: <%= ENV.fetch("MYSQL_USERNAME") { 'root' } %>
+  password: <%= ENV.fetch("MYSQL_PASSWORD") { 'password' } %>
 
 development:
   <<: *default

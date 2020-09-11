@@ -6,10 +6,11 @@ services:
       dockerfile: app/Dockerfile
     volumes:
       - ~/mtm:/var/www/mtm
+    # ホスト側で80番ポートの許可が必要
+    # nginxでバーチャルホストを設定する
+    ports:
+      - 80:80
     environment:
-      APP_DATABASE_HOST: db
-      APP_DATABASE_USERNAME: root
-      APP_DATABASE_PASSWORD: password
       MYSQL_ROOT_PASSWORD: password
     depends_on:
       - db
