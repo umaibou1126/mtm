@@ -1,0 +1,30 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: app/Dockerfile
+    volumes:
+      - ~/mtm:/var/www/mtm
+    # ホスト側で80番ポートの許可が必要
+    # nginxでバーチャルホストを設定する
+    ports:
+      - 80:80
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    depends_on:
+      - db
+    tty: true
+    stdin_open: true
+
+  db:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    volumes:
+      - db-volume:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+volumes:
+  db-volume:
+

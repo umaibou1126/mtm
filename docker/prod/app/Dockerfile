@@ -36,18 +36,12 @@ RUN apt-get update -y && \
     rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 
 # supervisor用logディレクトリ作成
-RUN mkdir -p /var/log/supervisor
+RUN mkdir -p /var/run/apache2 /var/run/sshd /var/log/supervisor
 
-# nginx.conf, conf.d/app.conf作成
-COPY app/nginx/app.conf /etc/nginx/conf.d/app.conf
+# app.conf supervisord.conf作成
 COPY app/nginx/nginx.conf /etc/nginx/nginx.conf
-
-
-# supervisord.conf, conf.d/app.conf作成
 COPY app/supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-
-CMD [ "/usr/bin/supervisord" ]
 
 
 
