@@ -20,3 +20,4 @@
  - AWS（EC2  |  RDS  |  VPC  |  ALB  |  ACM  |  Route53  | IAM）
  - Docker | Docker Compose
 
+[![Image from Gyazo](https://i.gyazo.com/f4236209a4ba5eae050c7effad7c501f.png)](https://gyazo.com/f4236209a4ba5eae050c7effad7c501f))
