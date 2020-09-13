@@ -47,7 +47,8 @@ COPY app/nginx/dev.rails.com.conf /etc/nginx/conf.d/dev.rails.com.conf
 COPY app/supervisor/supervisord.conf /etc/supervisor/supervisord.conf
 COPY app/supervisor/app.conf /etc/supervisor/conf.d/app.conf
 
-# CMD [ "/usr/bin/supervisord" ]
+CMD [ "/usr/bin/supervisord" ]
+
 
 
 

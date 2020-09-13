@@ -1,3 +1,26 @@
+# 環境構築手順
+
+$ bundle install
+$ bundle exec rake db:create db:migrate
+$ /usr/bin/supervisorctl restart app
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## リバースプロキシについて
  - pumaはダウンしやすいため、nginxで負荷分散している
 
