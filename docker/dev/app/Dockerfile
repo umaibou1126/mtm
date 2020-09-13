@@ -39,15 +39,15 @@ RUN apt-get update -y && \
 RUN mkdir -p /var/log/supervisor
 
 # nginx.conf, conf.d/app.conf作成
-COPY app/nginx/app.conf /etc/nginx/conf.d/app.conf
+COPY app/nginx/dev.rails.com.conf /etc/nginx/conf.d/dev.rails.com.conf
 COPY app/nginx/nginx.conf /etc/nginx/nginx.conf
 
 
 # supervisord.conf, conf.d/app.conf作成
-COPY app/supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY app/supervisor/supervisord.conf /etc/supervisor/supervisord.conf
+COPY app/supervisor/app.conf /etc/supervisor/conf.d/app.conf
 
-
-CMD [ "/usr/bin/supervisord" ]
+# CMD [ "/usr/bin/supervisord" ]
 
 
 
