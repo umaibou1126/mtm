@@ -39,8 +39,8 @@ RUN apt-get update -y && \
 RUN mkdir -p /var/log/supervisor
 
 # nginx.conf, conf.d/app.conf作成
-COPY app/nginx/dev.rails.com.conf /etc/nginx/conf.d/dev.rails.com.conf
 COPY app/nginx/nginx.conf /etc/nginx/nginx.conf
+COPY app/nginx/dev.rails.com.conf /etc/nginx/conf.d/dev.rails.com.conf
 
 
 # supervisord.conf, conf.d/app.conf作成
