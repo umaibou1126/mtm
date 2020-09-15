@@ -49,3 +49,4 @@ yarn-debug.log*
 # terraform
 /terraform/.terraform/*
 /terraform/terraform.tfstate.backup
+/terraform/terraform.tfvars
