@@ -16,6 +16,6 @@
  - Vue-CLI 4.4.1
 
 ### インフラ
-
+ - Terraform
  - AWS（EC2  |  RDS  |  VPC  |  ALB  |  ACM  |  Route53  | IAM）
  - Docker | Docker Compose
