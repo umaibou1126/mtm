@@ -17,5 +17,5 @@
 
 ### インフラ
  - Terraform
- - AWS（EC2  |  RDS  |  VPC  |  ALB  |  ACM  |  Route53  | IAM）
+ - AWS（EC2  |  RDS  |  VPC  |  ALB  |  ACM  |  Route53  | IAM | ECS | ECR）
  - Docker | Docker Compose
