@@ -1,0 +1,28 @@
+[
+    {
+        "image": "972418215193.dkr.ecr.ap-northeast-1.amazonaws.com/ecs-test:latest",
+        "logConfiguration": {
+            "logDriver": "awslogs",
+            "options": {
+                "awslogs-group": "terraform-log-group",
+                "awslogs-region": "ap-northeast-1",
+                "awslogs-stream-prefix": "ecs"
+            }
+        },
+        "cpu": 512,
+        "memory": 1024,
+        "mountPoints": [],
+        "environment": [],
+        "networkMode": "awsvpc",
+        "name": "terraform-container",
+        "essential": true,
+        "portMappings": [
+            {
+                "hostPort": 80,
+                "containerPort": 80,
+                "protocol": "tcp"
+            }
+        ],
+        "command": []
+    }
+]

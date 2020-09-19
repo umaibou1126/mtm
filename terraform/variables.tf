@@ -3,4 +3,6 @@
 
 variable "aws_access_key" {}
 variable "aws_secret_key" {}
-variable "region"{}
+variable "region" {}
+
+variable "aws_account_id" {}

@@ -9,3 +9,10 @@ $ ssh-keygen -t rsa -f example -N ''
     - aws_access_key="xxxxxxxxxxxxx"
     - aws_secret_key="xxxxxxxxxxxxx"
     - region="ap-northeast-1"
+
+## tfファイルフォーマット
+$ terraform fmt
+
+## エラー：
+Error loading state:AccessDenied: Access Denied
+  - ./terraform全消し
