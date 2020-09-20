@@ -37,6 +37,12 @@ $ /usr/bin/supervisorctl restart app
  - $ /usr/sbin/nginx -g 'daemon off;' -c /etc/nginx/nginx.conf
 
 
-# mysql2エラー
+## mysql2エラー
 
  - $ bundle config --local build.mysql2 "--with-ldflags=-L/usr/local/opt/openssl/lib"
+
+## dockerコンテナ削除
+ - $ docker rm -f `docker ps -a -q`
+
+## dockerイメージ削除
+ - $ docker rmi `docker images -q`

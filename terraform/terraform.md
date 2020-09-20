@@ -24,6 +24,7 @@ Error loading state:AccessDenied: Access Denied
   - docker tag umaibou1126/dev_app:latest 972418215193.dkr.ecr.ap-northeast-1.amazonaws.com/ecs-test-20200919:latest
   - docker push 972418215193.dkr.ecr.ap-northeast-1.amazonaws.com/ecs-test-20200919:latest
 
+
 ## git add取り消し
   - git rm --cached -r .
 

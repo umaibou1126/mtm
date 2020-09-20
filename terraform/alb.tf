@@ -22,7 +22,7 @@ resource "aws_alb_target_group" "terraform-target-group" {
 
   health_check {
     protocol            = "HTTP"
-    path                = "/ping.rb"
+    path                = "/ping"
     port                = 80
     unhealthy_threshold = 2
     timeout             = 5
