@@ -60,3 +60,38 @@ resource "aws_security_group_rule" "out_all" {
   to_port           = 0
   protocol          = "-1"
 }
+
+# ====================
+# Security Group（ALB）
+# ====================
+resource "aws_security_group" "terraform-security-group-alb" {
+  name        = "terraform-security-group-alb"
+  description = "terraform-security-group-alb"
+  vpc_id      = aws_vpc.terraform-vpc.id
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "terraform-security-group-alb"
+  }
+}
+

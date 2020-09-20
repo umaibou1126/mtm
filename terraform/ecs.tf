@@ -38,7 +38,6 @@ resource "aws_ecs_service" "terraform-service" {
   deployment_maximum_percent         = 200
   name                               = "terraform-service"
   task_definition                    = aws_ecs_task_definition.terraform-task-definition.arn
-  # depends_on                         = ["aws_alb_listener_rule.terraform-listener-rule"]
   //desired_count：タスク数
   desired_count = 1
 
@@ -47,14 +46,16 @@ resource "aws_ecs_service" "terraform-service" {
     ignore_changes = [desired_count, task_definition]
   }
 
+  load_balancer {
+    target_group_arn = aws_alb_target_group.terraform-target-group.arn
+    container_name   = "terraform-container"
+    container_port   = 80
+  }
+
   network_configuration {
     subnets          = [aws_subnet.terraform-subnet-1.id, aws_subnet.terraform-subnet-2.id]
-    security_groups  = [aws_security_group.terraform-security-group.id]
+    security_groups  = [aws_security_group.terraform-security-group-alb.id]
     assign_public_ip = "true"
   }
-  # load_balancer {
-  #   target_group_arn = aws_alb_target_group.terraform-target-group.arn
-  #   container_name   = "terraform-container"
-  #   container_port   = 80
-  # }
 }
+

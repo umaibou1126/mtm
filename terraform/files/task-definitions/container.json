@@ -1,6 +1,6 @@
 [
     {
-        "image": "972418215193.dkr.ecr.ap-northeast-1.amazonaws.com/ecs-test:latest",
+        "image": "972418215193.dkr.ecr.ap-northeast-1.amazonaws.com/ecs-test-20200919:latest",
         "logConfiguration": {
             "logDriver": "awslogs",
             "options": {
