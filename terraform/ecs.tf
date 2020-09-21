@@ -54,7 +54,7 @@ resource "aws_ecs_service" "terraform-service" {
 
   network_configuration {
     subnets          = [aws_subnet.terraform-subnet-1.id, aws_subnet.terraform-subnet-2.id]
-    security_groups  = [aws_security_group.terraform-security-group-alb.id]
+    security_groups  = [aws_security_group.terraform-security-group-alb.id, aws_security_group.terraform-security-group-rds.id]
     assign_public_ip = "true"
   }
 }

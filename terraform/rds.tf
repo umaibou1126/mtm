@@ -21,7 +21,7 @@ resource "aws_db_instance" "terraform-rds" {
   password               = "password"
   parameter_group_name   = "default.mysql5.7"
   port                   = "3306"
-  vpc_security_group_ids = [aws_security_group.terraform-security-group.id]
+  vpc_security_group_ids = [aws_security_group.terraform-security-group-app.id]
   db_subnet_group_name   = "${aws_db_subnet_group.terraform-rds-subnet-group.name}"
   skip_final_snapshot    = true
 }
