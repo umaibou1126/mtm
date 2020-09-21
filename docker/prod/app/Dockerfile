@@ -36,13 +36,22 @@ RUN apt-get update -y && \
     rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 
 # supervisor用logディレクトリ作成
-RUN mkdir -p /var/run/apache2 /var/run/sshd /var/log/supervisor
+RUN mkdir -p /var/log/supervisor
 
-# app.conf supervisord.conf作成
+# nginx.conf, conf.d/app.conf作成
 COPY app/nginx/nginx.conf /etc/nginx/nginx.conf
-COPY app/supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY app/nginx/default.conf /etc/nginx/conf.d/default.conf
 
 
+# supervisord.conf, conf.d/app.conf作成
+COPY app/supervisor/supervisord.conf /etc/supervisor/supervisord.conf
+COPY app/supervisor/app.conf /etc/supervisor/conf.d/app.conf
+
+CMD [ "/usr/bin/supervisord" ]
+
+# シンボリックリンク（ヘルスチェックログ）
+RUN ln -sf /dev/stdout /var/log/nginx/access.log
+RUN ln -sf /dev/stderr /var/log/nginx/error.log
 
 
 
