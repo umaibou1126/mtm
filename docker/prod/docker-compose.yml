@@ -22,9 +22,8 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - db-volume:/var/lib/mysql
+      # mysql初期化
+      - ./db/mysql_init:/docker-entrypoint-initdb.d
+      - ./db/data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: password
-volumes:
-  db-volume:
-

@@ -36,13 +36,28 @@ RUN apt-get update -y && \
     rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 
 # supervisor用logディレクトリ作成
-RUN mkdir -p /var/run/apache2 /var/run/sshd /var/log/supervisor
+RUN mkdir -p /var/log/supervisor
 
-# app.conf supervisord.conf作成
+# nginx.conf, conf.d/app.conf作成
 COPY app/nginx/nginx.conf /etc/nginx/nginx.conf
-COPY app/supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY app/nginx/rails.com.conf /etc/nginx/conf.d/rails.com.conf
+COPY app/nginx/healthcheck.conf /etc/nginx/conf.d/healthcheck.conf
+
+# supervisord.conf, conf.d/app.conf作成
+COPY app/supervisor/supervisord.conf /etc/supervisor/supervisord.conf
+COPY app/supervisor/app.conf /etc/supervisor/conf.d/app.conf
 
 
 
+# シンボリックリンク（ヘルスチェックログ）
+RUN ln -sf /dev/stdout /var/log/nginx/access.log
+RUN ln -sf /dev/stdout /var/log/nginx/rails.com.access.log
+RUN ln -sf /dev/stdout /var/log/nginx/healthcheck.access.log
+RUN ln -sf /dev/stderr /var/log/nginx/error.log
+RUN ln -sf /dev/stderr /var/log/nginx/rails.com.error.log
+RUN ln -sf /dev/stderr /var/log/nginx/healthcheck.error.log
 
+# アプリケーションログ
+RUN ln -sf /dev/stdout /var/www/mtm/log
 
+CMD [ "/usr/bin/supervisord" ]

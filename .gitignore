@@ -17,6 +17,7 @@
 /db/mysql_init
 /db/data
 /docker/dev/db
+/docker/prod/db
 
 # Ignore all logfiles and tempfiles.
 /log/*
