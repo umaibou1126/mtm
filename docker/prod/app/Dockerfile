@@ -50,14 +50,14 @@ COPY app/supervisor/app.conf /etc/supervisor/conf.d/app.conf
 
 
 # シンボリックリンク（ヘルスチェックログ）
+# 各nginxアクセスログ
 RUN ln -sf /dev/stdout /var/log/nginx/access.log
 RUN ln -sf /dev/stdout /var/log/nginx/rails.com.access.log
 RUN ln -sf /dev/stdout /var/log/nginx/healthcheck.access.log
-RUN ln -sf /dev/stderr /var/log/nginx/error.log
 RUN ln -sf /dev/stderr /var/log/nginx/rails.com.error.log
 RUN ln -sf /dev/stderr /var/log/nginx/healthcheck.error.log
 
-# アプリケーションログ
+# アプリケーションログ(pumaログ)
 RUN ln -sf /dev/stdout /var/www/mtm/log
 
 CMD [ "/usr/bin/supervisord" ]
