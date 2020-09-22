@@ -41,7 +41,7 @@ RUN mkdir -p /var/log/supervisor
 # nginx.conf, conf.d/app.conf作成
 COPY app/nginx/nginx.conf /etc/nginx/nginx.conf
 COPY app/nginx/rails.com.conf /etc/nginx/conf.d/rails.com.conf
-COPY app/nginx/healthcheck.conf /etc/nginx/conf.d/healthcheck.conf
+#COPY app/nginx/healthcheck.conf /etc/nginx/conf.d/healthcheck.conf
 
 # supervisord.conf, conf.d/app.conf作成
 COPY app/supervisor/supervisord.conf /etc/supervisor/supervisord.conf
@@ -53,9 +53,9 @@ COPY app/supervisor/app.conf /etc/supervisor/conf.d/app.conf
 # 各nginxアクセスログ
 RUN ln -sf /dev/stdout /var/log/nginx/access.log
 RUN ln -sf /dev/stdout /var/log/nginx/rails.com.access.log
-RUN ln -sf /dev/stdout /var/log/nginx/healthcheck.access.log
+#RUN ln -sf /dev/stdout /var/log/nginx/healthcheck.access.log
 RUN ln -sf /dev/stderr /var/log/nginx/rails.com.error.log
-RUN ln -sf /dev/stderr /var/log/nginx/healthcheck.error.log
+#RUN ln -sf /dev/stderr /var/log/nginx/healthcheck.error.log
 
 # アプリケーションログ(pumaログ)
 RUN ln -sf /dev/stdout /var/www/mtm/log

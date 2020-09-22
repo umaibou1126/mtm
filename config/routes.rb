@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get   'ping', to: 'ping#ping'
   ActiveAdmin.routes(self)
   root to: 'home#index'
   namespace :api, { format: 'json' } do
