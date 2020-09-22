@@ -18,10 +18,10 @@ Error loading state:AccessDenied: Access Denied
   - ./terraform全消し
 
 ## ECRプッシュ
-  - docker tag ca4b8e3a4857 umaibou1126/dev_app
+  - docker tag ca4b8e3a4857 umaibou1126/prod_app
   - docker images
-  - docker push umaibou1126/dev_app
-  - docker tag umaibou1126/dev_app:latest 972418215193.dkr.ecr.ap-northeast-1.amazonaws.com/ecs-test-20200919:latest
+  - docker push umaibou1126/prod_app
+  - docker tag umaibou1126/prod_app:latest 972418215193.dkr.ecr.ap-northeast-1.amazonaws.com/ecs-test-20200919:latest
   - docker push 972418215193.dkr.ecr.ap-northeast-1.amazonaws.com/ecs-test-20200919:latest
 
 
