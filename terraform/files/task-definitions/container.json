@@ -1,6 +1,6 @@
 [
     {
-        "image": "972418215193.dkr.ecr.ap-northeast-1.amazonaws.com/production_app:latest",
+        "image": "972418215193.dkr.ecr.ap-northeast-1.amazonaws.com/production_app-0924:latest",
         "logConfiguration": {
             "logDriver": "awslogs",
             "options": {
@@ -23,6 +23,8 @@
                 "protocol": "tcp"
             }
         ],
-        "command": []
+        "command": [
+            "/usr/bin/supervisord"
+        ]
     }
 ]

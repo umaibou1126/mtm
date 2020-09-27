@@ -3,10 +3,6 @@ ENV APP_ROOT /var/www/mtm
 ENV LANG C.UTF-8
 ENV TZ Asia/Tokyo
 
-# ディレクトリ作成
-RUN mkdir -p $APP_ROOT
-RUN mkdir -p /root/tmp
-WORKDIR $APP_ROOT
 
 # Node.js、Nginx, supervisorインストール
 RUN apt-get update -y && \
@@ -35,17 +31,28 @@ RUN apt-get update -y && \
     apt-get clean -y && \
     rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 
+
+
+# ディレクトリ作成
+RUN mkdir -p $APP_ROOT
+RUN mkdir -p /root/tmp
+
+# bundle install
+WORKDIR $APP_ROOT
+COPY . $APP_ROOT
+RUN bundle install --path vendor/bundle
+
 # supervisor用logディレクトリ作成
 RUN mkdir -p /var/log/supervisor
 
 # nginx.conf, conf.d/app.conf作成
-COPY app/nginx/nginx.conf /etc/nginx/nginx.conf
-COPY app/nginx/rails.com.conf /etc/nginx/conf.d/rails.com.conf
+COPY docker/prod/app/nginx/nginx.conf /etc/nginx/nginx.conf
+COPY docker/prod/app/nginx/rails.com.conf /etc/nginx/conf.d/rails.com.conf
 #COPY app/nginx/healthcheck.conf /etc/nginx/conf.d/healthcheck.conf
 
 # supervisord.conf, conf.d/app.conf作成
-COPY app/supervisor/supervisord.conf /etc/supervisor/supervisord.conf
-COPY app/supervisor/app.conf /etc/supervisor/conf.d/app.conf
+COPY docker/prod/app/supervisor/supervisord.conf /etc/supervisor/supervisord.conf
+COPY docker/prod/app/supervisor/app.conf /etc/supervisor/conf.d/app.conf
 
 
 
