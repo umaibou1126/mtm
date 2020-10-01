@@ -17,6 +17,15 @@ $ terraform fmt
 Error loading state:AccessDenied: Access Denied
   - ./terraform全消し
 
+## dockerコンテナ削除
+ - $ docker rm -f `docker ps -a -q`
+
+## dockerイメージ削除
+ - $ docker rmi `docker images -q`
+
+ ## dockerイメージ作成
+ - $ docker build -f docker/prod/app/Dockerfile -t production_app_20200927 .
+
 ## ECRプッシュ
   - docker tag ca4b8e3a4857 umaibou1126/prod_app
   - docker images
@@ -30,4 +39,16 @@ Error loading state:AccessDenied: Access Denied
 
 ## git commit取り消し
   - git reset --soft HEAD^
+
+
+## EC2 RDS接続
+$ mysql -h terraform-rds.cwmmfqrwq6x1.ap-northeast-1.rds.amazonaws.com -P 3306 -u test -p
+ - test/password
+
+
+ ## ENV database.yml export
+
+ $ export RAILS_DATABASE_USERNAME=test
+ $ export RAILS_DATABASE_PASSWORD=password
+ $ export RAILS_DATABASE_HOST=terraform-rds.cwmmfqrwq6x1.ap-northeast-1.rds.amazonaws.com
 
