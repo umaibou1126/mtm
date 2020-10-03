@@ -48,6 +48,8 @@ WORKDIR $APP_ROOT
 COPY . $APP_ROOT
 RUN bundle install --path vendor/bundle
 
+
+
 # supervisor用logディレクトリ作成
 RUN mkdir -p /var/log/supervisor
 
@@ -75,6 +77,7 @@ RUN ln -sf /dev/stderr /var/log/nginx/rails.com.error.log
 #RUN ln -sf /dev/stderr /var/log/nginx/healthcheck.error.log
 
 # アプリケーションログ(pumaログ)
-RUN ln -sf /dev/stdout /var/www/mtm/log
+RUN ln -sf /dev/stdout $APP_ROOT/log/development.log
+RUN ln -sf /dev/stdout $APP_ROOT/log/production.log
 
 CMD [ "/usr/bin/supervisord" ]

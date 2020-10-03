@@ -95,6 +95,10 @@ GEM
     crass (1.0.6)
     deep_merge (1.2.1)
     diff-lcs (1.4.4)
+    dotenv (2.7.6)
+    dotenv-rails (2.7.6)
+      dotenv (= 2.7.6)
+      railties (>= 3.2)
     dry-configurable (0.11.6)
       concurrent-ruby (~> 1.0)
       dry-core (~> 0.4, >= 0.4.7)
@@ -369,6 +373,7 @@ DEPENDENCIES
   capybara (>= 2.15)
   concurrent-ruby
   config
+  dotenv-rails
   jbuilder (~> 2.7)
   jwt_sessions
   listen (~> 3.2)

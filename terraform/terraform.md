@@ -24,10 +24,14 @@ Error loading state:AccessDenied: Access Denied
  - $ docker rmi `docker images -q`
 
  ## dockerイメージ作成
+<<<<<<< HEAD
+ - $ docker build -f docker/prod/app/Dockerfile -t app_202010031922 .
+=======
  - $ docker build -f docker/prod/app/Dockerfile -t production_20200930 .
+>>>>>>> 3fbd0abd95d21a8f62e12ce666145f8f00c17160
 
 ## ECRプッシュ
-  - docker tag ca4b8e3a4857 umaibou1126/prod_app
+  - docker tag ca4b8e3a4857 umaibou1126/prod_app-8
   - docker images
   - docker push umaibou1126/prod_app
   - docker tag umaibou1126/prod_app:latest 972418215193.dkr.ecr.ap-northeast-1.amazonaws.com/ecs-test-20200919:latest
@@ -53,6 +57,31 @@ $ mysql -h terraform-rds.cwmmfqrwq6x1.ap-northeast-1.rds.amazonaws.com -P 3306 -
  $ export RAILS_DATABASE_PASSWORD=password
  $ export RAILS_DATABASE_HOST=terraform-rds.cwmmfqrwq6x1.ap-northeast-1.rds.amazonaws.com
  $ export RAILS_DATABASE_PORT=3306
+<<<<<<< HEAD
+
+## EC2インストール
+
+ - sudo yum install git
+ - yum list installed | grep mariadb
+ - sudo yum remove mariadb-libs
+ - sudo yum-config-manager --disable mysql57-community
+ - sudo yum-config-manager --enable mysql80-community
+ - sudo yum install -y mysql-community-client
+ - mysql --version
+
+
+# production環境
+ - $ bundle exec rails db:migrate RAILS_ENV=production
+
+
+ # vscode プラグインインストール
+  - $ code --list-extensions | xargs -L 1 echo code --install-extension
+
+# アセットプリコンパイル
+ - $ bundle exec rake assets:precompile RAILS_ENV=production
+
+=======
+>>>>>>> 3fbd0abd95d21a8f62e12ce666145f8f00c17160
 
 ## EC2インストール
 
