@@ -31,6 +31,12 @@ RUN apt-get update -y && \
     apt-get clean -y && \
     rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 
+RUN apt-get update \
+    && apt-get install -y openssh-server \
+    && mkdir -p /var/run/sshd
+
+
+
 
 
 # ディレクトリ作成
@@ -54,6 +60,10 @@ COPY docker/prod/app/nginx/rails.com.conf /etc/nginx/conf.d/rails.com.conf
 COPY docker/prod/app/supervisor/supervisord.conf /etc/supervisor/supervisord.conf
 COPY docker/prod/app/supervisor/app.conf /etc/supervisor/conf.d/app.conf
 
+
+# docker-entrypoint.sh
+COPY docker/prod/app/docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 
 # シンボリックリンク（ヘルスチェックログ）

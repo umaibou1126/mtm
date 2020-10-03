@@ -23,8 +23,8 @@ resource "aws_ecs_task_definition" "terraform-task-definition" {
   network_mode             = "awsvpc"
   task_role_arn            = "arn:aws:iam::${var.aws_account_id}:role/ecsTaskExecutionRole"
   execution_role_arn       = "arn:aws:iam::${var.aws_account_id}:role/ecsTaskExecutionRole"
-  cpu                      = 512
-  memory                   = 1024
+  cpu                      = 1024
+  memory                   = 2048
   container_definitions    = file("files/task-definitions/container.json")
 }
 
@@ -54,7 +54,7 @@ resource "aws_ecs_service" "terraform-service" {
 
   network_configuration {
     subnets          = [aws_subnet.terraform-subnet-1.id, aws_subnet.terraform-subnet-2.id]
-    security_groups  = [aws_security_group.terraform-security-group-alb.id, aws_security_group.terraform-security-group-rds.id]
+    security_groups  = [aws_security_group.terraform-security-group-app.id, aws_security_group.terraform-security-group-rds.id]
     assign_public_ip = "true"
   }
 }

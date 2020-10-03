@@ -24,7 +24,7 @@ Error loading state:AccessDenied: Access Denied
  - $ docker rmi `docker images -q`
 
  ## dockerイメージ作成
- - $ docker build -f docker/prod/app/Dockerfile -t production_app_20200927 .
+ - $ docker build -f docker/prod/app/Dockerfile -t production_20200930 .
 
 ## ECRプッシュ
   - docker tag ca4b8e3a4857 umaibou1126/prod_app
@@ -42,6 +42,7 @@ Error loading state:AccessDenied: Access Denied
 
 
 ## EC2 RDS接続
+ - RDSセキュリティグループで3306 0.0.0.0/0を空ける
 $ mysql -h terraform-rds.cwmmfqrwq6x1.ap-northeast-1.rds.amazonaws.com -P 3306 -u test -p
  - test/password
 
@@ -51,4 +52,17 @@ $ mysql -h terraform-rds.cwmmfqrwq6x1.ap-northeast-1.rds.amazonaws.com -P 3306 -
  $ export RAILS_DATABASE_USERNAME=test
  $ export RAILS_DATABASE_PASSWORD=password
  $ export RAILS_DATABASE_HOST=terraform-rds.cwmmfqrwq6x1.ap-northeast-1.rds.amazonaws.com
+ $ export RAILS_DATABASE_PORT=3306
 
+## EC2インストール
+
+ - sudo yum install git
+ - yum list installed | grep mariadb
+ - sudo yum remove mariadb-libs
+ - sudo yum-config-manager --disable mysql57-community
+ - sudo yum-config-manager --enable mysql80-community
+ - sudo yum install -y mysql-community-client
+ - mysql --version
+
+
+# digコマンド
