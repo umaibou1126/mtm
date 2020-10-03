@@ -31,6 +31,12 @@ RUN apt-get update -y && \
     apt-get clean -y && \
     rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 
+RUN apt-get update \
+    && apt-get install -y openssh-server \
+    && mkdir -p /var/run/sshd
+
+
+
 
 
 # ディレクトリ作成
@@ -41,6 +47,8 @@ RUN mkdir -p /root/tmp
 WORKDIR $APP_ROOT
 COPY . $APP_ROOT
 RUN bundle install --path vendor/bundle
+
+
 
 # supervisor用logディレクトリ作成
 RUN mkdir -p /var/log/supervisor
@@ -55,6 +63,10 @@ COPY docker/prod/app/supervisor/supervisord.conf /etc/supervisor/supervisord.con
 COPY docker/prod/app/supervisor/app.conf /etc/supervisor/conf.d/app.conf
 
 
+# docker-entrypoint.sh
+COPY docker/prod/app/docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
 
 # シンボリックリンク（ヘルスチェックログ）
 # 各nginxアクセスログ
@@ -65,6 +77,7 @@ RUN ln -sf /dev/stderr /var/log/nginx/rails.com.error.log
 #RUN ln -sf /dev/stderr /var/log/nginx/healthcheck.error.log
 
 # アプリケーションログ(pumaログ)
-RUN ln -sf /dev/stdout /var/www/mtm/log
+RUN ln -sf /dev/stdout $APP_ROOT/log/development.log
+RUN ln -sf /dev/stdout $APP_ROOT/log/production.log
 
 CMD [ "/usr/bin/supervisord" ]

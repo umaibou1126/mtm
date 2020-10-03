@@ -1,48 +1,12 @@
-# # SQLite. Versions 3.8.0 and up are supported.
-# #   gem install sqlite3
-# #
-# #   Ensure the SQLite 3 gem is defined in your Gemfile
-# #   gem 'sqlite3'
-# #
-
-# default: &default
-#   adapter: mysql2
-#   charset: utf8mb4
-#   collation: utf8mb4_bin
-#   encoding: utf8mb4
-#   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-#   host: <%= ENV.fetch("MYSQL_HOST") { 'db' } %>
-#   username: <%= ENV.fetch("MYSQL_USERNAME") { 'root' } %>
-#   password: <%= ENV.fetch("MYSQL_PASSWORD") { 'password' } %>
-
-# development:
-#   <<: *default
-#   database: app_development
-
-# # Warning: The database defined as "test" will be erased and
-# # re-generated from your development database when you run "rake".
-# # Do not set this db to the same as development or production.
-# test:
-#   <<: *default
-#   database: app_test
-
-# production:
-#   <<: *default
-#   database: app_production
-
-
-
-##### 本番環境RDS用 #####
-
 default: &default
   adapter: mysql2
   encoding: utf8
   pool: 5
   username: <%= ENV['RAILS_DATABASE_USERNAME'] %>
   password: <%= ENV['RAILS_DATABASE_PASSWORD'] %>
-  socket: /var/lib/mysql/mysql.sock
   host: <%= ENV['RAILS_DATABASE_HOST'] %>
-
+  port: <%= ENV['RAILS_DATABASE_PORT'] %>
+  socket:   "/tmp/mysql.sock"
 
 development:
   <<: *default
@@ -55,3 +19,18 @@ test:
 production:
   <<: *default
   database: app_production
+
+
+# development:
+#   adapter: mysql2
+#   charset: utf8mb4
+#   collation: utf8mb4_bin
+#   encoding: utf8mb4
+#   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+#   host: <%= ENV.fetch("MYSQL_HOST") { 'db' } %>
+#   username: <%= ENV.fetch("MYSQL_USERNAME") { 'root' } %>
+#   password: <%= ENV.fetch("MYSQL_PASSWORD") { 'password' } %>
+
+
+
+
