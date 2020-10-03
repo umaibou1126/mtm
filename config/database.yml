@@ -1,12 +1,28 @@
+<<<<<<< HEAD
+=======
+##### 本番環境RDS用 #####
+
+>>>>>>> 3fbd0abd95d21a8f62e12ce666145f8f00c17160
 default: &default
   adapter: mysql2
+  charset: utf8mb4
   encoding: utf8
   pool: 5
+<<<<<<< HEAD
   username: <%= ENV['RAILS_DATABASE_USERNAME'] %>
   password: <%= ENV['RAILS_DATABASE_PASSWORD'] %>
   host: <%= ENV['RAILS_DATABASE_HOST'] %>
   port: <%= ENV['RAILS_DATABASE_PORT'] %>
   socket:   "/tmp/mysql.sock"
+=======
+  host:     "terraform-rds.cwmmfqrwq6x1.ap-northeast-1.rds.amazonaws.com"
+  database: "app_development"
+  username: "test"
+  password: "password"
+  socket:   "/tmp/mysql.sock"
+  port: "3306"
+
+>>>>>>> 3fbd0abd95d21a8f62e12ce666145f8f00c17160
 
 development:
   <<: *default
