@@ -27,7 +27,7 @@ Error loading state:AccessDenied: Access Denied
 <<<<<<< HEAD
  - $ docker build -f docker/prod/app/Dockerfile -t app_202010031922 .
 =======
- - $ docker build -f docker/prod/app/Dockerfile -t production_20201003 .
+ - $ docker build -f docker/prod/app/Dockerfile -t production_202010032144 .
 >>>>>>> 3fbd0abd95d21a8f62e12ce666145f8f00c17160
 
 ## ECRプッシュ
