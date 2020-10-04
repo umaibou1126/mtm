@@ -64,28 +64,28 @@
     - mysql --version
 
 
-# production作成作業
-## production用データベース作成
-  - $ bundle exec rails db:migrate RAILS_ENV=production
+
+## production作成作業
+  - production用データベース作成
+    - $ bundle exec rails db:migrate RAILS_ENV=production
 
 
-## アセットプリコンパイル
-  - $ bundle exec rake assets:precompile RAILS_ENV=production
+  - アセットプリコンパイル
+    - $ bundle exec rake assets:precompile RAILS_ENV=production
 
-## ENV database.yml export
-  - $ export RAILS_DATABASE_USERNAME=test
-  - $ export RAILS_DATABASE_PASSWORD=password
-  - $ export RAILS_DATABASE_HOST=terraform-rds.cwmmfqrwq6x1.ap-northeast-1.rds.amazonaws.com
-  - $ export RAILS_DATABASE_PORT=3306
+  - ENV database.yml export
+    - $ export RAILS_DATABASE_USERNAME=test
+    - $ export RAILS_DATABASE_PASSWORD=password
+    - $ export RAILS_DATABASE_HOST=terraform-rds.cwmmfqrwq6x1.ap-northeast-1.rds.amazonaws.com
+    - $ export RAILS_DATABASE_PORT=3306
 
 
-# ミドルウェア
+## ミドルウェア
+  - リバースプロキシについて
+    - pumaはダウンしやすいため、nginxで負荷分散している
 
-## リバースプロキシについて
- - pumaはダウンしやすいため、nginxで負荷分散している
-
-## supervisorコマンド
-  - supervisor起動
+  - supervisorコマンド
+    - supervisor起動
     - $ /etc/init.d/supervisor start
     - $ supervisord -c /etc/supervisor/supervisord.conf
 
@@ -97,8 +97,8 @@
   - supervisordの設定の「/var/run」を「/dev/shm」 に変更する
     - $ sed -i "s/\/var\/run/\/dev\/shm/g" /etc/supervisor/supervisord.conf
 
-## nginxコマンド
-  - ポート確認
+  - nginxコマンド
+    - ポート確認
     - $ ps -ef | grep nginx
     - $ ps aux | grep nginx
 
@@ -110,28 +110,27 @@
     - $ touch /run/nginx.pid
 
 
- ## ポート占有確認
-  - $ sudo lsof -i:80
-  - $ ps ax | grep rails
+  - ポート占有確認
+    - $ sudo lsof -i:80
+    - $ ps ax | grep rails
 
 
-## puma起動
   - puma起動
     - $ bundle exec puma -C config/puma.rb
-    - bundle exec pumactl start
+    - $ bundle exec pumactl start
 
   - nginx / puma同時起動
     - $ bundle exec puma -d && \
     /usr/sbin/nginx -g 'daemon off;' -c /etc/nginx/nginx.conf
     - $ /usr/sbin/nginx -g 'daemon off;' -c /etc/nginx/nginx.conf
 
-## mysql2エラー
-  - $ bundle config --local build.mysql2 "--with-ldflags=-L/usr/local/opt/openssl/lib"
+  - mysql2エラー
+    - $ bundle config --local build.mysql2 "--with-ldflags=-L/usr/local/opt/openssl/lib"
 
-## cssが反映されない
- - config/environments/development.rb
-   - config.assets.debug = true　→ falseに変更
+  - cssが反映されない
+    - config/environments/development.rb
+    - config.assets.debug = true　→ falseに変更
 
 
-# vscode プラグインインストール
+## vscode プラグインインストール
   - $ code --list-extensions | xargs -L 1 echo code --install-extension
