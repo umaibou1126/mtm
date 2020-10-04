@@ -19,27 +19,26 @@
     - ./terraform全消し
 
 ## docker
-
   - devコンテナ内作業
     - $ bundle install
     - $ bundle exec rake db:create db:migrate
     - $ /usr/bin/supervisorctl restart app
-
 
   - dockerコンテナ削除
     - $ docker rm -f `docker ps -a -q`
 
   - dockerイメージ削除
     - $ docker rmi `docker images -q`
+
   - dockerイメージ作成
     - $ docker build -f docker/prod/app/Dockerfile -t production_app_1004 .
 
   - ECRプッシュ
-    - $ docker tag ca4b8e3a4857 umaibou1126/prod_app-8
-    - $ docker images
-    - $ docker push umaibou1126/prod_app
-    - $ docker tag umaibou1126/prod_app:latest 972418215193.dkr.ecr.ap-northeast-1.amazonaws.com/ecs-test-20200919:latest
-    - $ docker push 972418215193.dkr.ecr.ap-northeast-1.amazonaws.com/ecs-test-20200919:latest
+    - docker tag ca4b8e3a4857 umaibou1126/prod_app-8
+    - docker images
+    - docker push umaibou1126/prod_app
+    - docker tag umaibou1126/prod_app:latest 972418215193.dkr.ecr.ap-northeast-1.amazonaws.com/ecs-test-20200919:latest
+    - docker push 972418215193.dkr.ecr.ap-northeast-1.amazonaws.com/ecs-test-20200919:latest
 
 
 ## git
@@ -56,13 +55,14 @@
     - test/password
 
   - EC2インストール
-    - $ sudo yum install git
-    - $ yum list installed | grep mariadb
-    - $ sudo yum remove mariadb-libs
-    - $ sudo yum-config-manager --disable mysql57-community
+    - sudo yum install git
+    - yum list installed | grep mariadb
+    - sudo yum remove mariadb-libs
+    - sudo yum-config-manager --disable mysql57-community
     - sudo yum-config-manager --enable mysql80-community
     - sudo yum install -y mysql-community-client
     - mysql --version
+
 
 
 ## production作成作業
