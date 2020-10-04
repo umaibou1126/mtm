@@ -35,10 +35,6 @@ RUN apt-get update \
     && apt-get install -y openssh-server \
     && mkdir -p /var/run/sshd
 
-
-
-
-
 # ディレクトリ作成
 RUN mkdir -p $APP_ROOT
 RUN mkdir -p /root/tmp
@@ -48,33 +44,24 @@ WORKDIR $APP_ROOT
 COPY . $APP_ROOT
 RUN bundle install --path vendor/bundle
 
-
-
 # supervisor用logディレクトリ作成
 RUN mkdir -p /var/log/supervisor
 
 # nginx.conf, conf.d/app.conf作成
 COPY docker/prod/app/nginx/nginx.conf /etc/nginx/nginx.conf
-COPY docker/prod/app/nginx/rails.com.conf /etc/nginx/conf.d/rails.com.conf
-#COPY app/nginx/healthcheck.conf /etc/nginx/conf.d/healthcheck.conf
+COPY docker/prod/app/nginx/portfoliough.com.conf /etc/nginx/conf.d/portfoliough.com.conf
 
 # supervisord.conf, conf.d/app.conf作成
 COPY docker/prod/app/supervisor/supervisord.conf /etc/supervisor/supervisord.conf
 COPY docker/prod/app/supervisor/app.conf /etc/supervisor/conf.d/app.conf
 
 
-# docker-entrypoint.sh
-COPY docker/prod/app/docker-entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-
 
 # シンボリックリンク（ヘルスチェックログ）
 # 各nginxアクセスログ
 RUN ln -sf /dev/stdout /var/log/nginx/access.log
-RUN ln -sf /dev/stdout /var/log/nginx/rails.com.access.log
-#RUN ln -sf /dev/stdout /var/log/nginx/healthcheck.access.log
-RUN ln -sf /dev/stderr /var/log/nginx/rails.com.error.log
-#RUN ln -sf /dev/stderr /var/log/nginx/healthcheck.error.log
+RUN ln -sf /dev/stdout /var/log/nginx/portfoliough.com.access.log
+RUN ln -sf /dev/stderr /var/log/nginx/portfoliough.com.error.log
 
 # アプリケーションログ(pumaログ)
 RUN ln -sf /dev/stdout $APP_ROOT/log/development.log
