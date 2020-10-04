@@ -22,15 +22,8 @@ Error loading state:AccessDenied: Access Denied
 
 ## dockerイメージ削除
  - $ docker rmi `docker images -q`
-<<<<<<< HEAD
-
- ## dockerイメージ作成
- - $ docker build -f docker/prod/app/Dockerfile -t production_20200930 .
-
-=======
 # dockerイメージ作成
 - $ docker build -f docker/prod/app/Dockerfile -t production_10032218 .
->>>>>>> 341d19adbcb1b503a97126c0fa3789a1789c057e
 
 ## ECRプッシュ
   - docker tag ca4b8e3a4857 umaibou1126/prod_app-8

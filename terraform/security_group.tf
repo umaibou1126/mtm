@@ -85,10 +85,6 @@ resource "aws_security_group" "terraform-security-group-rds" {
     from_port   = 3306
     to_port     = 3306
     protocol    = "tcp"
-<<<<<<< HEAD
-
-=======
->>>>>>> 341d19adbcb1b503a97126c0fa3789a1789c057e
     cidr_blocks = ["52.193.147.240/28"]
     description = "terraform-security-group-rds"
   }
