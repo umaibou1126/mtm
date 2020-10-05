@@ -12,7 +12,7 @@ executors:
           BUNDLE_JOBS: 3
           BUNDLE_RETRY: 3
           BUNDLE_PATH: vendor/bundle
-          RAILS_ENV: development
+          RAILS_ENV: test
           DATABASE_HOST: '127.0.0.1'
           DATABASE_USER: 'root'
       - image: circleci/mysql:5.7
@@ -75,7 +75,7 @@ commands:
           family: 'terraform-family'
           service-name: 'terraform-service'
           cluster-name: 'terraform-cluster'
-          container-image-name-updates: 'container=terraform-container',image-and-tag=${AWS_ECR_ACCOUNT_URL}/test-app:${CIRCLE_SHA1}'
+          container-image-name-updates: 'container=terraform-container,image-and-tag=${AWS_ECR_ACCOUNT_URL}/test-app:${CIRCLE_SHA1}'
 
   db_migrate:
     steps:
@@ -88,19 +88,6 @@ commands:
           subnet-ids: terraform-subnet-1,terraform-subnet-2
           security-group-ids: terraform-security-group-app,terraform-security-group-rds
           overrides: "{\\\"containerOverrides\\\":[{\\\"name\\\": \\\"terraform-container\\\",\\\"command\\\": [\\\"bundle\\\", \\\"exec\\\", \\\"rake\\\", \\\"db:migrate\\\", \\\"RAILS_ENV=test\\\"]}]}"
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   # Vueインストール
   vue-installation:
@@ -118,6 +105,64 @@ commands:
           key: cache-yarn-{{ checksum "yarn.lock" }}
           paths:
             - node_modules
+
+
+# jobs：実行処理
+jobs:
+  rspec:
+    working_directory: ~/rspec
+    executor: default
+    steps:
+      - checkout
+      # commandsで指定した"bundle_install_rspec"を実行
+      - bundle_install_rspec
+
+  deploy_app:
+    working_directory: ~/app
+    executor: default
+    steps:
+      - run:
+          name: copy and echo .env
+          # .env.exampleを環境変数に設定
+          command: |
+            cp docker/prod/app/.env.example .env \
+            && echo DATABASE_HOST="${DATABASE_HOST_PRE}" >> .env \
+            && echo DATABASE_NAME="${DATABASE_NAME_PRE}" >> .env \
+            && echo DATABASE_PASSWORD="${DATABASE_PASSWORD_PRE}" >> .env \
+            && echo DATABASE_USER="${DATABASE_USER_PRE}" >> .env \
+            && echo SECRET_KEY_BASE="${SECRET_KEY_BASE}" >> .env \
+            && echo AWS_S3_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID_PRE_S3}" >> .env \
+            && echo AWS_S3_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY_PRE_S3}" >> .env \
+            && echo AWS_S3_BUCKET_NAME="${AWS_S3_BUCKET_NAME_PRE}" >> .env
+
+
+      - run:
+          name: copy and echo aws credentials
+          command: |
+            cp docker/prod/app/common/.aws/credentials credentials \
+            && sed -i "2i aws_access_key_id =${AWS_ACCESS_KEY_ID_PRE_S3}" credentials \
+            && sed -i "3i aws_secret_access_key =${AWS_SECRET_ACCESS_KEY_PRE_S3}" credentials
+
+      - build_and_push_docker_image
+      - db_migrate
+
+
+# workflows：全てのジョブのオーケストレーション
+workflows:
+  version: 2
+  rspec_deploy_app:
+  # jobsで定義したジョブ
+    jobs:
+      - rspec
+      - deploy_app:
+          filters:
+            # github devブランチ
+            branchs:
+              only: dev
+
+
+
+
 
 
 
