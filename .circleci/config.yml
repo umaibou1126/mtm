@@ -1,23 +1,25 @@
 version: 2.1
 orbs:
-  circleci/aws-ecr@6.12.2
-  circleci/aws-ecs@1.3.0
+  aws-ecr: circleci/aws-ecr@6.12.2
+  aws-ecs: circleci/aws-ecs@1.3.0
 
 # executors: ジョブのステップ実行する環境を定義
 executors:
   default:
     docker:
-      - image: circleci/ruby:2.7.1-stretch
+      # circleci/ruby:2.7.1-stretchでエラー
+      - image: circleci/ruby:2.7.1
         environment:
           BUNDLE_JOBS: 3
           BUNDLE_RETRY: 3
           BUNDLE_PATH: vendor/bundle
-          RAILS_ENV: test
+          RAILS_ENV: development
           DATABASE_HOST: '127.0.0.1'
           DATABASE_USER: 'root'
       - image: circleci/mysql:5.7
         environment:
-          MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+          MYSQL_ROOT_PASSWORD: password
+          # MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
           MYSQL_HOST: '%'
   docker_build:
     machine:
@@ -63,13 +65,13 @@ commands:
   build_and_push_docker_image:
     steps:
       - aws-ecr/build-and-push-image:
-        account-url: AWS_ECR_ACCOUNT_URL
-        aws-access-key-id: AWS_ACCESS_KEY_ID
-        aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-        region: AWS_REGION
-        repo: 'test-app'
-        dockerfile: docker/prod/app/Dockerfile
-        tag: "${CIRCLE_SHA1}"
+          account-url: AWS_ECR_ACCOUNT_URL
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          region: AWS_REGION
+          repo: 'test-app'
+          dockerfile: docker/prod/app/Dockerfile
+          tag: "${CIRCLE_SHA1}"
 
       - aws-ecs/update-service:
           family: 'terraform-family'
@@ -154,11 +156,11 @@ workflows:
   # jobsで定義したジョブ
     jobs:
       - rspec
-      - deploy_app:
-          filters:
-            # github devブランチ
-            branchs:
-              only: dev
+      - deploy_app
+          # filters:
+          #   # github devブランチ
+          #   branchs:
+          #     only: dev
 
 
 
