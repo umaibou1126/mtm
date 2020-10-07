@@ -134,3 +134,11 @@
 
 ## vscode プラグインインストール
   - $ code --list-extensions | xargs -L 1 echo code --install-extension
+
+
+## CircleCI
+  - config.ymlのチェック
+    - $ yamllint .circleci/config.yml
+    - $ circleci orb validate .circleci/config.yml
+    - $ circleci local execute -c .circleci/config.yml --job build
+    - $ circleci build --job rspec .circleci/config.yml

@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
-RSpec.describe 'Api::V1::Menus', type: :request do
-end
+# RSpec.describe 'Api::V1::Menus', type: :request do
+# end
