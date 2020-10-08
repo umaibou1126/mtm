@@ -142,3 +142,4 @@
     - $ circleci orb validate .circleci/config.yml
     - $ circleci local execute -c .circleci/config.yml --job build
     - $ circleci build --job rspec .circleci/config.yml
+    - $ circleci build --job deploy_app .circleci/config.yml
