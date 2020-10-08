@@ -8,19 +8,20 @@ executors:
   default:
     docker:
       # circleci/ruby:2.7.1-stretchでエラー
-      - image: circleci/ruby:2.7.1
+      - image: circleci/ruby:2.7.1-node-browsers-legacy
         environment:
           BUNDLE_JOBS: 3
           BUNDLE_RETRY: 3
           BUNDLE_PATH: vendor/bundle
-          RAILS_ENV: development
-          DATABASE_HOST: '127.0.0.1'
+          RAILS_ENV: test
+          # database.ymlの"DATABASE_HOST"は、localhost
+          DATABASE_HOST: 127.0.0.1
           DATABASE_USER: 'root'
+          DATABASE_PASSWORD: ''
       - image: circleci/mysql:5.7
         environment:
-          MYSQL_ROOT_PASSWORD: password
-          # MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
           MYSQL_HOST: '%'
+          MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
   docker_build:
     machine:
       docker_layer_caching: true
@@ -120,14 +121,14 @@ jobs:
       - bundle_install_rspec
 
   deploy_app:
-    working_directory: ~/docker
+    # working_directory: ~/app
     executor: default
     steps:
       - run:
           name: copy and echo .env
           # .env.exampleを環境変数に設定
           command: |
-            cp prod/app/.env.example .env \
+            cp docker/pre/app/.env.example .env \
             && echo DATABASE_HOST="${DATABASE_HOST}" >> .env \
             && echo DATABASE_NAME="${DATABASE_NAME}" >> .env \
             && echo DATABASE_PASSWORD="${DATABASE_PASSWORD}" >> .env \
