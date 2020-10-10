@@ -125,7 +125,7 @@ jobs:
     executor: default
     steps:
       - setup_remote_docker
-      - checkout
+      # - checkout
       ## 差分チェックスクリプト
       # - run:
       #     name: check_changed_directory_terraform
@@ -133,15 +133,15 @@ jobs:
       #       if ! ~/app/scripts/circleci/is_changed_directory.sh "terraform"; then
       #         circleci step halt
       #       fi
-      - add_ssh_keys:
-          fingerprints:
-            - "axxxxxxx"
-      - run:
-          name: find mv ssh key id_rsa_github,echo authorized_keys and copy config-ssh
-          command: |
-            find /home/circleci/.ssh -type f | grep '[0-9]' | xargs -I% mv % . \
-            && echo ${DEVOPS_KEY_PRE} >> authorized_keys \
-            && cp docker/pre/app/common/.ssh/config-ssh config-ssh
+      # - add_ssh_keys:
+      #     fingerprints:
+      #       - "axxxxxxx"
+      # - run:
+      #     name: find mv ssh key id_rsa_github,echo authorized_keys and copy config-ssh
+      #     command: |
+      #       find /home/circleci/.ssh -type f | grep '[0-9]' | xargs -I% mv % . \
+      #       && echo ${DEVOPS_KEY_PRE} >> authorized_keys \
+      #       && cp docker/pre/app/common/.ssh/config-ssh config-ssh
       # - run:
       #     name: copy and echo .env
       #     # .env.exampleを環境変数に設定
@@ -176,10 +176,10 @@ workflows:
     jobs:
       - rspec
       - deploy_app
-          # filters:
-          #   # github devブランチ
-          #   branchs:
-          #     only: dev
+          filters:
+            # github devブランチ
+            branchs:
+              only: dev
 
 
 
