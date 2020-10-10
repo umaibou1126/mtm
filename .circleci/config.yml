@@ -71,7 +71,7 @@ commands:
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           region: AWS_REGION
           repo: 'test-app'
-          dockerfile: docker/prod/app/Dockerfile
+          dockerfile: docker/pre/app/Dockerfile
           tag: "${CIRCLE_SHA1}"
 
       - aws-ecs/update-service:
@@ -121,9 +121,27 @@ jobs:
       - bundle_install_rspec
 
   deploy_app:
-    # working_directory: ~/app
+    working_directory: ~/app
     executor: default
     steps:
+      - setup_remote_docker
+      - checkout
+      ## 差分チェックスクリプト
+      # - run:
+      #     name: check_changed_directory_terraform
+      #     command: |
+      #       if ! ~/app/scripts/circleci/is_changed_directory.sh "terraform"; then
+      #         circleci step halt
+      #       fi
+      - add_ssh_keys:
+          fingerprints:
+            - "axxxxxxx"
+      - run:
+          name: find mv ssh key id_rsa_github,echo authorized_keys and copy config-ssh
+          command: |
+            find /home/circleci/.ssh -type f | grep '[0-9]' | xargs -I% mv % . \
+            && echo ${DEVOPS_KEY_PRE} >> authorized_keys \
+            && cp docker/pre/app/common/.ssh/config-ssh config-ssh
       # - run:
       #     name: copy and echo .env
       #     # .env.exampleを環境変数に設定
@@ -139,12 +157,12 @@ jobs:
       #       && echo AWS_S3_BUCKET_NAME="${AWS_S3_BUCKET_NAME}" >> .env
 
 
-      - run:
-          name: copy and echo aws credentials
-          command: |
-            cp docker/prod/app/common/.aws/credentials credentials \
-            && sed -i "2i aws_access_key_id =${AWS_ACCESS_KEY_ID_PRE_S3}" credentials \
-            && sed -i "3i aws_secret_access_key =${AWS_SECRET_ACCESS_KEY_PRE_S3}" credentials
+      # - run:
+      #     name: copy and echo aws credentials
+      #     command: |
+      #       cp docker/pre/app/.aws/credentials credentials \
+      #       && sed -i "2i aws_access_key_id =${AWS_ACCESS_KEY_ID_PRE_S3}" credentials \
+      #       && sed -i "3i aws_secret_access_key =${AWS_SECRET_ACCESS_KEY_PRE_S3}" credentials
 
       - build_and_push_docker_image
       - db_migrate

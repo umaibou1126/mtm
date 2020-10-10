@@ -55,3 +55,6 @@ yarn-debug.log*
 # env
 .env
 .env.example
+
+# aws credentials
+/docker/pre/app/.aws
