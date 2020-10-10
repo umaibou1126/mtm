@@ -40,7 +40,7 @@ RUN mkdir -p $APP_ROOT
 RUN mkdir -p /root/tmp
 
 # bundle install
-RUN cp -r docker/pre/app/.bundle .
+RUN cp -r .bundle .
 #COPY . $APP_ROOT
 RUN bundle install --path vendor/bundle
 RUN bundle exec rake assets:precompile RAILS_ENV=pre
