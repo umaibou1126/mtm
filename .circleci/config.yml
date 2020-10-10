@@ -176,10 +176,10 @@ workflows:
     jobs:
       - rspec
       - deploy_app
-          filters:
-            # github devブランチ
-            branchs:
-              only: dev
+          # filters:
+          #   # github devブランチ
+          #   branchs:
+          #     only: dev
 
 
 
