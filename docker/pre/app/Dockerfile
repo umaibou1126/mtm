@@ -49,7 +49,7 @@ RUN bundle install --path vendor/bundle
 
 # aws-cli install
 RUN curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
-RUN python get-pip.py && sudo pip install awscli
+RUN python get-pip.py && pip install awscli
 RUN rm get-pip.py
 
 
