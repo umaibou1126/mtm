@@ -13,13 +13,13 @@ executors:
           BUNDLE_JOBS: 3
           BUNDLE_RETRY: 3
           BUNDLE_PATH: vendor/bundle
-          RAILS_ENV: test
+          RAILS_ENV: development
           # database.ymlの"DATABASE_HOST"は、localhost
           DATABASE_HOST: '127.0.0.1'
           DATABASE_USER: 'root'
       - image: circleci/mysql:5.7
         environment:
-          MYSQL_DATABASE: app_test
+          MYSQL_DATABASE: app_development
           MYSQL_HOST: '%'
           MYSQL_ALLOW_EMPTY_PASSWORD: true
   docker_build:
