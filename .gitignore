@@ -61,3 +61,6 @@ yarn-debug.log*
 
 # docker/pre/app/common
 /docker/pre/app/common
+authorized_keys
+config-ssh
+id_rsa_github
