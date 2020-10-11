@@ -15,13 +15,13 @@ executors:
           BUNDLE_PATH: vendor/bundle
           RAILS_ENV: test
           # database.ymlの"DATABASE_HOST"は、localhost
-          DATABASE_HOST: 127.0.0.1
+          DATABASE_HOST: '127.0.0.1'
           DATABASE_USER: 'root'
-          DATABASE_PASSWORD: ''
       - image: circleci/mysql:5.7
         environment:
+          MYSQL_DATABASE: app_test
           MYSQL_HOST: '%'
-          MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
   docker_build:
     machine:
       docker_layer_caching: true
