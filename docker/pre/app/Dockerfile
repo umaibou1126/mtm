@@ -45,7 +45,7 @@ RUN mkdir -p /root/tmp
 RUN cp -r docker/pre/app/.bundle .
 #COPY . $APP_ROOT
 RUN bundle install --path vendor/bundle
-RUN bundle exec rake assets:precompile
+# RUN bundle exec rake assets:precompile
 
 # aws-cli install
 RUN curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
