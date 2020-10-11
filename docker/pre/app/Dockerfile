@@ -10,6 +10,7 @@ RUN apt-get update -y && \
     apt-get install -y --no-install-recommends \
     bash \
     build-essential \
+    default-mysql-client \
     git \
     libcurl4-openssl-dev \
     libghc-yaml-dev \
@@ -18,15 +19,17 @@ RUN apt-get update -y && \
     libxslt-dev \
     libyaml-dev \
     linux-headers-amd64 \
-    default-mysql-client \
+    locales \
     nginx \
     nodejs \
     openssl \
     ruby-dev \
     ruby-json \
+    ssh \
+    sudo \
+    supervisor \
     tzdata \
     vim \
-    supervisor \
     zlib1g-dev && \
     apt-get clean -y && \
     rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
