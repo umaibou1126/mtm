@@ -58,3 +58,9 @@ yarn-debug.log*
 
 # aws credentials
 /docker/pre/app/.aws
+
+# docker/pre/app/common
+/docker/pre/app/authorized_keys
+/docker/pre/app/id_rsa_github
+/docker/pre/app/config
+/docker/pre/app/common/.gitconfig
