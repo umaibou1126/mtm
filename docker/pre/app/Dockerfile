@@ -35,12 +35,14 @@ RUN apt-get update \
     && apt-get install -y openssh-server \
     && mkdir -p /var/run/sshd
 
-# ディレクトリ作成
+# copy app
 RUN mkdir -p $APP_ROOT
+COPY . $APP_ROOT
+WORKDIR /var/www/mtm
 RUN mkdir -p /root/tmp
 
 # bundle install
-RUN cp -r .bundle .
+RUN cp -r docker/pre/app/.bundle .
 #COPY . $APP_ROOT
 RUN bundle install --path vendor/bundle
 RUN bundle exec rake assets:precompile RAILS_ENV=pre
