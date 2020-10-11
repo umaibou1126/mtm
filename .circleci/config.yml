@@ -15,13 +15,12 @@ executors:
           BUNDLE_PATH: vendor/bundle
           RAILS_ENV: test
           # database.ymlの"DATABASE_HOST"は、localhost
-          # DATABASE_HOST: '127.0.0.1'
-          # DATABASE_USER: 'root'
+          DATABASE_HOST: '127.0.0.1'
       - image: circleci/mysql:5.7
         environment:
-          # MYSQL_DATABASE: app_test
+          MYSQL_DATABASE: app_test
           MYSQL_HOST: '%'
-          MYSQL_ALLOW_EMPTY_PASSWORD: true
+          MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
   docker_build:
     machine:
       docker_layer_caching: true
@@ -31,10 +30,6 @@ executors:
 commands:
   bundle_install_rspec:
     steps:
-      - run:
-          # mysql.sock作成
-          name: create_mysql.sock
-          command: sudo touch /var/lib/mysql/mysql.sock || sudo chown mysql:mysql /var/lib/mysql/mysql.sock
       - run:
           name: Which bundler?
           command: bundle -v

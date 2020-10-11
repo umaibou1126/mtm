@@ -56,9 +56,10 @@ RUN rm get-pip.py
 # Create test user
 RUN adduser --disabled-password --home /home/test test
 RUN echo "test ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-COPY docker/pre/app/common/prompt.sh /etc/profile.d/
-RUN chmod 755  /etc/profile.d/prompt.sh
-COPY docker/pre/app/common/.bashrc /home/test/
+# プロンプトの色変更など
+# COPY docker/pre/app/common/prompt.sh /etc/profile.d/
+# RUN chmod 755  /etc/profile.d/prompt.sh
+# COPY docker/pre/app/common/.bashrc /home/test/
 
 
 # Add authorized_keys
