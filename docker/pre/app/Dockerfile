@@ -10,6 +10,7 @@ RUN apt-get update -y && \
     apt-get install -y --no-install-recommends \
     bash \
     build-essential \
+    default-mysql-client \
     git \
     libcurl4-openssl-dev \
     libghc-yaml-dev \
@@ -18,15 +19,17 @@ RUN apt-get update -y && \
     libxslt-dev \
     libyaml-dev \
     linux-headers-amd64 \
-    default-mysql-client \
+    locales \
     nginx \
     nodejs \
     openssl \
     ruby-dev \
     ruby-json \
+    ssh \
+    sudo \
+    supervisor \
     tzdata \
     vim \
-    supervisor \
     zlib1g-dev && \
     apt-get clean -y && \
     rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
@@ -35,28 +38,31 @@ RUN apt-get update \
     && apt-get install -y openssh-server \
     && mkdir -p /var/run/sshd
 
-# ディレクトリ作成
+# copy app
 RUN mkdir -p $APP_ROOT
+COPY . $APP_ROOT
+WORKDIR /var/www/mtm
 RUN mkdir -p /root/tmp
 
 # bundle install
 RUN cp -r docker/pre/app/.bundle .
 #COPY . $APP_ROOT
 RUN bundle install --path vendor/bundle
-RUN bundle exec rake assets:precompile RAILS_ENV=pre
+# RUN bundle exec rake assets:precompile
 
 # aws-cli install
 RUN curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
-RUN python get-pip.py && sudo pip install awscli
+RUN python get-pip.py && pip install awscli
 RUN rm get-pip.py
 
 
 # Create test user
 RUN adduser --disabled-password --home /home/test test
 RUN echo "test ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-COPY docker/pre/app/common/prompt.sh /etc/profile.d/
-RUN chmod 755  /etc/profile.d/prompt.sh
-COPY docker/pre/app/common/.bashrc /home/test/
+# プロンプトの色変更など
+# COPY docker/pre/app/common/prompt.sh /etc/profile.d/
+# RUN chmod 755  /etc/profile.d/prompt.sh
+# COPY docker/pre/app/common/.bashrc /home/test/
 
 
 # Add authorized_keys

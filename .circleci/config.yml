@@ -15,13 +15,14 @@ executors:
           BUNDLE_PATH: vendor/bundle
           RAILS_ENV: test
           # database.ymlの"DATABASE_HOST"は、localhost
-          DATABASE_HOST: 127.0.0.1
-          DATABASE_USER: 'root'
-          DATABASE_PASSWORD: ''
+          DATABASE_HOST: '127.0.0.1'
+          DB_USERNAME: 'root'
+          DB_PASSWORD: 'password'
       - image: circleci/mysql:5.7
         environment:
-          MYSQL_HOST: '%'
-          MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+          MYSQL_DATABASE: app_test
+          MYSQL_USER: 'root'
+          MYSQL_ROOT_PASSWORD: 'password'
   docker_build:
     machine:
       docker_layer_caching: true
@@ -125,7 +126,7 @@ jobs:
     executor: default
     steps:
       - setup_remote_docker
-      - checkout
+      # - checkout
       ## 差分チェックスクリプト
       # - run:
       #     name: check_changed_directory_terraform
@@ -133,15 +134,15 @@ jobs:
       #       if ! ~/app/scripts/circleci/is_changed_directory.sh "terraform"; then
       #         circleci step halt
       #       fi
-      - add_ssh_keys:
-          fingerprints:
-            - "axxxxxxx"
-      - run:
-          name: find mv ssh key id_rsa_github,echo authorized_keys and copy config-ssh
-          command: |
-            find /home/circleci/.ssh -type f | grep '[0-9]' | xargs -I% mv % . \
-            && echo ${DEVOPS_KEY_PRE} >> authorized_keys \
-            && cp docker/pre/app/common/.ssh/config-ssh config-ssh
+      # - add_ssh_keys:
+      #     fingerprints:
+      #       - "axxxxxxx"
+      # - run:
+      #     name: find mv ssh key id_rsa_github,echo authorized_keys and copy config-ssh
+      #     command: |
+      #       find /home/circleci/.ssh -type f | grep '[0-9]' | xargs -I% mv % . \
+      #       && echo ${DEVOPS_KEY_PRE} >> authorized_keys \
+      #       && cp docker/pre/app/common/.ssh/config-ssh config-ssh
       # - run:
       #     name: copy and echo .env
       #     # .env.exampleを環境変数に設定

@@ -143,3 +143,6 @@
     - $ circleci local execute -c .circleci/config.yml --job build
     - $ circleci build --job rspec .circleci/config.yml
     - $ circleci build --job deploy_app .circleci/config.yml
+    - $ circleci build --job aws-ecr/build-and-push-image .circleci/config.yml
+    - CircleCIのAdvanced SettingsのPass secrets to builds from forked pull requestsがOff
+
