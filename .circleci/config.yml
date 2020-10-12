@@ -79,7 +79,7 @@ commands:
           family: 'terraform-family'
           service-name: 'terraform-service'
           cluster-name: 'terraform-cluster'
-          container-image-name-updates: 'container=terraform-container,image-and-tag=${AWS_ECR_ACCOUNT_URL}/test-app:${CIRCLE_SHA1}'
+          container-image-name-updates: 'container=terraform-container,image-and-tag=${AWS_ECR_ACCOUNT_URL}/production-app-1004:${CIRCLE_SHA1}'
 
   db_migrate:
     steps:

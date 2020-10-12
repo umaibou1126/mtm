@@ -48,6 +48,11 @@
   - git commit取り消し
     - git reset --soft HEAD^
 
+  - gitブランチ削除
+    - git branch -delete dev
+    - git branch -D dev  ※強力
+
+
 ## AWS
   - EC2 RDS接続
     - RDSセキュリティグループで3306 0.0.0.0/0を空ける
