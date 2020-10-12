@@ -86,7 +86,7 @@ RUN chmod 600 /root/.ssh/config
 
 # Add aws credentials
 RUN mkdir /home/test/.aws
-RUN mv .aws/credentials /home/test/.aws/
+RUN mv docker/pre/app/.aws/credentials /home/test/.aws/
 RUN sudo chown test:test /home/test/.aws/credentials
 
 
