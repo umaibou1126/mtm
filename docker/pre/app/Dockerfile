@@ -106,12 +106,12 @@ RUN mkdir -p /run/sshd
 RUN mkdir -p /var/log/supervisor
 
 # nginx.conf, conf.d/app.conf作成
-COPY docker/prod/app/nginx/nginx.conf /etc/nginx/nginx.conf
-COPY docker/prod/app/nginx/portfoliough.com.conf /etc/nginx/conf.d/portfoliough.com.conf
+COPY docker/pre/app/nginx/nginx.conf /etc/nginx/nginx.conf
+COPY docker/pre/app/nginx/portfoliough.com.conf /etc/nginx/conf.d/portfoliough.com.conf
 
 # supervisord.conf, conf.d/app.conf作成
-COPY docker/prod/app/supervisor/supervisord.conf /etc/supervisor/supervisord.conf
-COPY docker/prod/app/supervisor/app.conf /etc/supervisor/conf.d/app.conf
+COPY docker/pre/app/supervisor/supervisord.conf /etc/supervisor/supervisord.conf
+COPY docker/pre/app/supervisor/app.conf /etc/supervisor/conf.d/app.conf
 
 
 
