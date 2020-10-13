@@ -172,7 +172,7 @@ jobs:
 # workflows：全てのジョブのオーケストレーション
 workflows:
   version: 2
-  rspec_deploy_app:
+  rspec_deploy:
   # jobsで定義したジョブ
     jobs:
       - rspec
