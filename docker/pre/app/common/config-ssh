@@ -1,4 +1,0 @@
-Host github
-  Hostname umaibou1126@gmail.com
-  User git
-  IdentityFile /root/.ssh/id_rsa_github
