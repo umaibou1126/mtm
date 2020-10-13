@@ -56,13 +56,13 @@ yarn-debug.log*
 .env
 .env.example
 
-aws credentials
-/docker/pre/app/.aws
+# aws credentials
+# /docker/pre/app/.aws
 
-/docker/pre/app/common
-/docker/pre/app/common/.gitconfig
-/docker/pre/app/authorized_keys
-/docker/pre/app/config-ssh
-//docker/pre/app/id_rsa_github
-/docker/pre/app/aaa
-/docker/pre/app/.bundle
+# /docker/pre/app/common
+# /docker/pre/app/common/.gitconfig
+# /docker/pre/app/authorized_keys
+# /docker/pre/app/config-ssh
+# /docker/pre/app/id_rsa_github
+# /docker/pre/app/aaa
+# /docker/pre/app/.bundle
