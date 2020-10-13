@@ -67,7 +67,7 @@ RUN echo "test ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 # Add authorized_keys
 RUN sudo -u test mkdir /home/test/.ssh
-RUN mv docker/pre/app/authorized_keys /home/test/.ssh/
+RUN mv docker/pre/app/common/authorized_keys /home/test/.ssh/
 RUN chmod 600 /home/test/.ssh/authorized_keys
 RUN chown test:test /home/test/.ssh/authorized_keys
 
@@ -76,8 +76,8 @@ RUN chown test:test /home/test/.ssh/authorized_keys
 RUN mkdir /root/.ssh
 COPY docker/pre/app/common/.gitconfig /root/.gitconfig
 # RUN mv id_rsa_* id_rsa_github
-RUN mv docker/pre/app/id_rsa_github /root/.ssh/
-RUN mv docker/pre/app/config-ssh /root/.ssh/config
+RUN mv docker/pre/app/common/id_rsa_github /root/.ssh/
+RUN mv docker/pre/app/common/config-ssh /root/.ssh/config
 RUN chmod 600 /root/.ssh/id_rsa_github
 RUN chmod 600 /root/.ssh/config
 
@@ -86,7 +86,7 @@ RUN chmod 600 /root/.ssh/config
 
 # Add aws credentials
 RUN mkdir /home/test/.aws
-RUN mv docker/pre/app/.aws/credentials /home/test/.aws/
+RUN mv docker/pre/app/common/.aws/credentials /home/test/.aws/
 RUN sudo chown test:test /home/test/.aws/credentials
 
 
