@@ -71,7 +71,7 @@ commands:
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           region: AWS_REGION
-          repo: 'test-app'
+          repo: 'production-app-1004'
           dockerfile: docker/pre/app/Dockerfile
           tag: "${CIRCLE_SHA1}"
 
