@@ -130,15 +130,13 @@ jobs:
 
 
   update-tag:
-    working_directory: ~/app
-    executor: default
     docker:
       - image: 'circleci/python:3.7.1'
     steps:
       - aws-cli/install
       - aws-cli/configure:
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-region: AWS_DEFAULT_REGION
+          aws-access-key-id: $AWS_ACCESS_KEY_ID
+          aws-region: $AWS_DEFAULT_REGION
       - aws-ecs/update-task-definition-from-json:
           task-definition-json: my-app-definition.json
 
