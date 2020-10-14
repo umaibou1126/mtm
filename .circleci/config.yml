@@ -66,7 +66,7 @@ commands:
 # docker image build && push
   build_and_push_docker_image:
     steps:
-      - aws-ecr/build_and_push_image:
+      - aws-ecr/build-and-push-image:
           account-url: AWS_ECR_ACCOUNT_URL
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
@@ -77,9 +77,9 @@ commands:
           tag: "${CIRCLE_SHA1}"
 
       - aws-ecs/update-service:
-          # requires:
-          #   - aws-ecr/build_and_push_image
-          # aws-region: AWS_DEFAULT_REGION
+          requires:
+            - aws-ecr/build-and-push-image
+          aws-region: AWS_DEFAULT_REGION
           family: "${AWS_RESOURCE_NAME_PREFIX}-service"
           # service-name: 'terraform-service'
           cluster-name: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
