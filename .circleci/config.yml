@@ -128,15 +128,6 @@ jobs:
       # commandsで指定した"bundle_install_rspec"を実行
       - bundle_install_rspec
 
-  - aws-ecr/build-and-push-image:
-      account-url: AWS_ECR_ACCOUNT_URL
-      aws-access-key-id: AWS_ACCESS_KEY_ID
-      aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-      region: AWS_DEFAULT_REGION
-      # repo: 'production-app-1004'
-      repo: "${AWS_RESOURCE_NAME_PREFIX}"
-      dockerfile: docker/pre/app/Dockerfile
-      tag: "${CIRCLE_SHA1}"
 
   update-tag:
     docker:
@@ -148,30 +139,6 @@ jobs:
           aws-region: AWS_DEFAULT_REGION
       - aws-ecs/update-task-definition-from-json:
           task-definition-json: my-app-definition.json
-
-  - aws-ecs/deploy-service-update:
-      requires:
-        - aws-ecr/build-and-push-image
-      aws-region: AWS_DEFAULT_REGION
-      family: "${AWS_RESOURCE_NAME_PREFIX}-service"
-      # service-name: 'terraform-service'
-      cluster-name: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
-      # cluster-name: 'terraform-cluster'
-      container-image-name-updates: "container=${AWS_RESOURCE_NAME_PREFIX}-service,tag=${CIRCLE_SHA1}"
-      # container-image-name-updates: 'container=terraform-container,image-and-tag=${AWS_ECR_ACCOUNT_URL}/production-app-1004:${CIRCLE_SHA1}'
-
-
-
-  - aws-ecs/run-task:
-      cluster: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
-      aws-region: AWS_DEFAULT_REGION
-      task-definition: "${AWS_RESOURCE_NAME_PREFIX}-task-definition"
-      count: 1
-      launch-type: FARGATE
-      awsvpc: true
-      subnet-ids: terraform-subnet-1,terraform-subnet-2
-      security-group-ids: terraform-security-group-app,terraform-security-group-rds
-      overrides: "{\\\"containerOverrides\\\":[{\\\"name\\\": \\\"terraform-container\\\",\\\"command\\\": [\\\"bundle\\\", \\\"exec\\\", \\\"rake\\\", \\\"db:migrate\\\", \\\"RAILS_ENV=test\\\"]}]}"
 
 
   deploy_app:
@@ -195,10 +162,37 @@ workflows:
           #   # github devブランチ
           #   branchs:
           #     only: dev
-      - aws-ecr/build-and-push-image
+      - aws-ecr/build-and-push-image:
+          account-url: AWS_ECR_ACCOUNT_URL
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          region: AWS_DEFAULT_REGION
+          # repo: 'production-app-1004'
+          repo: "${AWS_RESOURCE_NAME_PREFIX}"
+          dockerfile: docker/pre/app/Dockerfile
+          tag: "${CIRCLE_SHA1}"
       - update-tag
-      - aws-ecs/deploy-service-update
-      - aws-ecs/run-task
+      - aws-ecs/deploy-service-update:
+          requires:
+            - aws-ecr/build-and-push-image
+          aws-region: AWS_DEFAULT_REGION
+          family: "${AWS_RESOURCE_NAME_PREFIX}-service"
+          # service-name: 'terraform-service'
+          cluster-name: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
+          # cluster-name: 'terraform-cluster'
+          container-image-name-updates: "container=${AWS_RESOURCE_NAME_PREFIX}-service,tag=${CIRCLE_SHA1}"
+          # container-image-name-updates: 'container=terraform-container,image-and-tag=${AWS_ECR_ACCOUNT_URL}/production-app-1004:${CIRCLE_SHA1}'
+
+      - aws-ecs/run-task:
+          cluster: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
+          aws-region: AWS_DEFAULT_REGION
+          task-definition: "${AWS_RESOURCE_NAME_PREFIX}-task-definition"
+          count: 1
+          launch-type: FARGATE
+          awsvpc: true
+          subnet-ids: terraform-subnet-1,terraform-subnet-2
+          security-group-ids: terraform-security-group-app,terraform-security-group-rds
+          overrides: "{\\\"containerOverrides\\\":[{\\\"name\\\": \\\"terraform-container\\\",\\\"command\\\": [\\\"bundle\\\", \\\"exec\\\", \\\"rake\\\", \\\"db:migrate\\\", \\\"RAILS_ENV=test\\\"]}]}"
 
 
 
