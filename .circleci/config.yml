@@ -138,7 +138,7 @@ jobs:
       #     aws-access-key-id: $AWS_ACCESS_KEY_ID
       #     aws-region: $AWS_DEFAULT_REGION
       - aws-ecs/update-task-definition-from-json:
-          task-definition-json: my-app-definition.json
+          task-definition-json: "${AWS_RESOURCE_NAME_PREFIX}-task-definition"
 
 
   deploy_app:
