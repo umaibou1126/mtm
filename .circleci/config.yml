@@ -86,17 +86,17 @@ commands:
   #         container-image-name-updates: "container=${AWS_RESOURCE_NAME_PREFIX}-service,tag=${CIRCLE_SHA1}"
   #         # container-image-name-updates: 'container=terraform-container,image-and-tag=${AWS_ECR_ACCOUNT_URL}/production-app-1004:${CIRCLE_SHA1}'
 
-  db_migrate:
-    steps:
-      - aws-ecs/run-task:
-          cluster: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
-          task-definition: "${AWS_RESOURCE_NAME_PREFIX}-task-definition"
-          count: 1
-          launch-type: FARGATE
-          awsvpc: true
-          subnet-ids: terraform-subnet-1,terraform-subnet-2
-          security-group-ids: terraform-security-group-app,terraform-security-group-rds
-          overrides: "{\\\"containerOverrides\\\":[{\\\"name\\\": \\\"terraform-container\\\",\\\"command\\\": [\\\"bundle\\\", \\\"exec\\\", \\\"rake\\\", \\\"db:migrate\\\", \\\"RAILS_ENV=test\\\"]}]}"
+  # db_migrate:
+  #   steps:
+  #     - aws-ecs/run-task:
+  #         cluster: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
+  #         task-definition: "${AWS_RESOURCE_NAME_PREFIX}-task-definition"
+  #         count: 1
+  #         launch-type: FARGATE
+  #         awsvpc: true
+  #         subnet-ids: terraform-subnet-1,terraform-subnet-2
+  #         security-group-ids: terraform-security-group-app,terraform-security-group-rds
+  #         overrides: "{\\\"containerOverrides\\\":[{\\\"name\\\": \\\"terraform-container\\\",\\\"command\\\": [\\\"bundle\\\", \\\"exec\\\", \\\"rake\\\", \\\"db:migrate\\\", \\\"RAILS_ENV=test\\\"]}]}"
 
   # Vueインストール
   vue-installation:
@@ -171,7 +171,7 @@ jobs:
       #       && sed -i "3i aws_secret_access_key =${AWS_SECRET_ACCESS_KEY_PRE_S3}" credentials
 
       # - build_and_push_docker_image
-      - db_migrate
+      # - db_migrate
 
 
 # workflows：全てのジョブのオーケストレーション
@@ -206,6 +206,16 @@ workflows:
           # cluster-name: 'terraform-cluster'
           container-image-name-updates: "container=${AWS_RESOURCE_NAME_PREFIX}-service,tag=${CIRCLE_SHA1}"
           # container-image-name-updates: 'container=terraform-container,image-and-tag=${AWS_ECR_ACCOUNT_URL}/production-app-1004:${CIRCLE_SHA1}'
+
+      - aws-ecs/run-task:
+          cluster: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
+          task-definition: "${AWS_RESOURCE_NAME_PREFIX}-task-definition"
+          count: 1
+          launch-type: FARGATE
+          awsvpc: true
+          subnet-ids: terraform-subnet-1,terraform-subnet-2
+          security-group-ids: terraform-security-group-app,terraform-security-group-rds
+          overrides: "{\\\"containerOverrides\\\":[{\\\"name\\\": \\\"terraform-container\\\",\\\"command\\\": [\\\"bundle\\\", \\\"exec\\\", \\\"rake\\\", \\\"db:migrate\\\", \\\"RAILS_ENV=test\\\"]}]}"
 
 
 
