@@ -66,7 +66,7 @@ commands:
 # docker image build && push
   build_and_push_docker_image:
     steps:
-      - aws-ecr/build-and-push-image:
+      - aws-ecr/build_and_push_image:
           account-url: AWS_ECR_ACCOUNT_URL
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
@@ -76,7 +76,7 @@ commands:
           dockerfile: docker/pre/app/Dockerfile
           tag: "${CIRCLE_SHA1}"
 
-      - aws-ecs/deploy-service-update:
+      - aws-ecs/update-service:
           requires:
             - aws-ecr/build_and_push_image
           aws-region: AWS_DEFAULT_REGION
