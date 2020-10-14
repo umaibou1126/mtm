@@ -71,21 +71,25 @@ commands:
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           region: AWS_REGION
-          repo: 'production-app-1004'
+          # repo: 'production-app-1004'
+          repo: "${AWS_RESOURCE_NAME_PREFIX}"
           dockerfile: docker/pre/app/Dockerfile
           tag: "${CIRCLE_SHA1}"
 
       - aws-ecs/update-service:
-          family: 'terraform-family'
-          service-name: 'terraform-service'
-          cluster-name: 'terraform-cluster'
-          container-image-name-updates: 'container=terraform-container,image-and-tag=${AWS_ECR_ACCOUNT_URL}/production-app-1004:${CIRCLE_SHA1}'
+          # family: 'terraform-family'
+          family: "${AWS_RESOURCE_NAME_PREFIX}-service"
+          # service-name: 'terraform-service'
+          cluster-name: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
+          # cluster-name: 'terraform-cluster'
+          container-image-name-updates: "container=${AWS_RESOURCE_NAME_PREFIX}-service,tag=${CIRCLE_SHA1}"
+          # container-image-name-updates: 'container=terraform-container,image-and-tag=${AWS_ECR_ACCOUNT_URL}/production-app-1004:${CIRCLE_SHA1}'
 
   db_migrate:
     steps:
       - aws-ecs/run-task:
-          cluster: 'terraform-cluster'
-          task-definition: 'terraform-task-definition'
+          cluster-name: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
+          task-definition: "${AWS_RESOURCE_NAME_PREFIX}-task-definition"
           count: 1
           launch-type: FARGATE
           awsvpc: true
