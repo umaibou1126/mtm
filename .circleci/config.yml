@@ -2,6 +2,8 @@ version: 2.1
 orbs:
   aws-ecr: circleci/aws-ecr@6.12.2
   aws-ecs: circleci/aws-ecs@1.3.0
+  aws-cli: circleci/aws-cli@1.3.0
+
 
 # executors: ジョブのステップ実行する環境を定義
 executors:
@@ -196,6 +198,17 @@ workflows:
           dockerfile: docker/pre/app/Dockerfile
           tag: "${CIRCLE_SHA1}"
 
+      - update-tag:
+          docker:
+            - image: 'circleci/python:3.7.1'
+          steps:
+            - aws-cli/install
+            - aws-cli/configure:
+                aws-access-key-id: AWS_ACCESS_KEY_ID
+                  aws-region: AWS_DEFAULT_REGION
+            - aws-ecs/update-task-definition-from-json:
+                task-definition-json: my-app-definition.json
+
       - aws-ecs/deploy-service-update:
           requires:
             - aws-ecr/build-and-push-image
@@ -207,8 +220,11 @@ workflows:
           container-image-name-updates: "container=${AWS_RESOURCE_NAME_PREFIX}-service,tag=${CIRCLE_SHA1}"
           # container-image-name-updates: 'container=terraform-container,image-and-tag=${AWS_ECR_ACCOUNT_URL}/production-app-1004:${CIRCLE_SHA1}'
 
+
+
       - aws-ecs/run-task:
           cluster: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
+          aws-region: AWS_DEFAULT_REGION
           task-definition: "${AWS_RESOURCE_NAME_PREFIX}-task-definition"
           count: 1
           launch-type: FARGATE
