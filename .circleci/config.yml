@@ -130,6 +130,8 @@ jobs:
 
 
   update-tag:
+    working_directory: ~/app
+    executor: default
     docker:
       - image: 'circleci/python:3.7.1'
     steps:
