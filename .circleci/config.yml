@@ -77,6 +77,9 @@ commands:
           tag: "${CIRCLE_SHA1}"
 
       - aws-ecs/update-service:
+          requires:
+            - aws-ecr/build-and-push-image
+          region: AWS_REGION
           # family: 'terraform-family'
           family: "${AWS_RESOURCE_NAME_PREFIX}-service"
           # service-name: 'terraform-service'
@@ -176,7 +179,7 @@ jobs:
 # workflows：全てのジョブのオーケストレーション
 workflows:
   version: 2
-  rspec_deploy_app:
+  build-and-deploy:
   # jobsで定義したジョブ
     jobs:
       - rspec
