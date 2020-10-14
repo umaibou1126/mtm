@@ -70,17 +70,16 @@ commands:
           account-url: AWS_ECR_ACCOUNT_URL
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          region: AWS_REGION
+          region: AWS_DEFAULT_REGION
           # repo: 'production-app-1004'
           repo: "${AWS_RESOURCE_NAME_PREFIX}"
           dockerfile: docker/pre/app/Dockerfile
           tag: "${CIRCLE_SHA1}"
 
       - aws-ecs/update-service:
-          # requires:
-          #   - aws-ecr/build-and-push-image
-          # region: AWS_REGION
-          # family: 'terraform-family'
+          requires:
+            - aws-ecr/build_and_push_image
+          aws-region: AWS_DEFAULT_REGION
           family: "${AWS_RESOURCE_NAME_PREFIX}-service"
           # service-name: 'terraform-service'
           cluster-name: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
