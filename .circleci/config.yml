@@ -64,27 +64,27 @@ commands:
                                 $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
 
 # docker image build && push
-  build_and_push_docker_image:
-    steps:
-      - aws-ecr/build-and-push-image:
-          account-url: AWS_ECR_ACCOUNT_URL
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          region: AWS_DEFAULT_REGION
-          # repo: 'production-app-1004'
-          repo: "${AWS_RESOURCE_NAME_PREFIX}"
-          dockerfile: docker/pre/app/Dockerfile
-          tag: "${CIRCLE_SHA1}"
+  # build_and_push_docker_image:
+  #   steps:
+  #     - aws-ecr/build-and-push-image:
+  #         account-url: AWS_ECR_ACCOUNT_URL
+  #         aws-access-key-id: AWS_ACCESS_KEY_ID
+  #         aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+  #         region: AWS_REGION
+  #         # repo: 'production-app-1004'
+  #         repo: "${AWS_RESOURCE_NAME_PREFIX}"
+  #         dockerfile: docker/pre/app/Dockerfile
+  #         tag: "${CIRCLE_SHA1}"
 
-      - aws-ecs/deploy-service-update:
-          requires:
-            - aws-ecr/build-and-push-image
-          family: "${AWS_RESOURCE_NAME_PREFIX}-service"
-          # service-name: 'terraform-service'
-          cluster-name: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
-          # cluster-name: 'terraform-cluster'
-          container-image-name-updates: "container=${AWS_RESOURCE_NAME_PREFIX}-service,tag=${CIRCLE_SHA1}"
-          # container-image-name-updates: 'container=terraform-container,image-and-tag=${AWS_ECR_ACCOUNT_URL}/production-app-1004:${CIRCLE_SHA1}'
+  #     - aws-ecs/deploy-service-update:
+  #         requires:
+  #           - aws-ecr/build-and-push-image
+  #         family: "${AWS_RESOURCE_NAME_PREFIX}-service"
+  #         # service-name: 'terraform-service'
+  #         cluster-name: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
+  #         # cluster-name: 'terraform-cluster'
+  #         container-image-name-updates: "container=${AWS_RESOURCE_NAME_PREFIX}-service,tag=${CIRCLE_SHA1}"
+  #         # container-image-name-updates: 'container=terraform-container,image-and-tag=${AWS_ECR_ACCOUNT_URL}/production-app-1004:${CIRCLE_SHA1}'
 
   db_migrate:
     steps:
@@ -170,7 +170,26 @@ jobs:
       #       && sed -i "2i aws_access_key_id =${AWS_ACCESS_KEY_ID_PRE_S3}" credentials \
       #       && sed -i "3i aws_secret_access_key =${AWS_SECRET_ACCESS_KEY_PRE_S3}" credentials
 
-      - build_and_push_docker_image
+      # - build_and_push_docker_image
+  - aws-ecr/build-and-push-image:
+          account-url: AWS_ECR_ACCOUNT_URL
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          region: AWS_REGION
+          # repo: 'production-app-1004'
+          repo: "${AWS_RESOURCE_NAME_PREFIX}"
+          dockerfile: docker/pre/app/Dockerfile
+          tag: "${CIRCLE_SHA1}"
+
+      - aws-ecs/deploy-service-update:
+          requires:
+            - aws-ecr/build-and-push-image
+          family: "${AWS_RESOURCE_NAME_PREFIX}-service"
+          # service-name: 'terraform-service'
+          cluster-name: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
+          # cluster-name: 'terraform-cluster'
+          container-image-name-updates: "container=${AWS_RESOURCE_NAME_PREFIX}-service,tag=${CIRCLE_SHA1}"
+          # container-image-name-updates: 'container=terraform-container,image-and-tag=${AWS_ECR_ACCOUNT_URL}/production-app-1004:${CIRCLE_SHA1}'
       - db_migrate
 
 
@@ -186,6 +205,25 @@ workflows:
           #   # github devブランチ
           #   branchs:
           #     only: dev
+      - aws-ecr/build-and-push-image:
+          account-url: AWS_ECR_ACCOUNT_URL
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          region: AWS_REGION
+          # repo: 'production-app-1004'
+          repo: "${AWS_RESOURCE_NAME_PREFIX}"
+          dockerfile: docker/pre/app/Dockerfile
+          tag: "${CIRCLE_SHA1}"
+
+      - aws-ecs/deploy-service-update:
+          requires:
+            - aws-ecr/build-and-push-image
+          family: "${AWS_RESOURCE_NAME_PREFIX}-service"
+          # service-name: 'terraform-service'
+          cluster-name: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
+          # cluster-name: 'terraform-cluster'
+          container-image-name-updates: "container=${AWS_RESOURCE_NAME_PREFIX}-service,tag=${CIRCLE_SHA1}"
+          # container-image-name-updates: 'container=terraform-container,image-and-tag=${AWS_ECR_ACCOUNT_URL}/production-app-1004:${CIRCLE_SHA1}'
 
 
 
