@@ -56,6 +56,6 @@ yarn-debug.log*
 .env
 .env.example
 
-# /docker/pre/app/common
-# /docker/pre/app/.bundle
+/docker/pre/app/common
+/docker/pre/app/.bundle
 /docker/pre/app/git
