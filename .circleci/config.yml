@@ -91,7 +91,7 @@ commands:
   db_migrate:
     steps:
       - aws-ecs/run-task:
-          cluster-name: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
+          cluster: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
           task-definition: "${AWS_RESOURCE_NAME_PREFIX}-task-definition"
           count: 1
           launch-type: FARGATE
