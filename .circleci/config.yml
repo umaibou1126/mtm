@@ -138,7 +138,7 @@ workflows:
       - aws-ecs/run-task:
           cluster: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
           aws-region: AWS_DEFAULT_REGION
-          task-definition: "${AWS_RESOURCE_NAME_PREFIX}-task-definition"
+          task-definition: "${AWS_RESOURCE_NAME_PREFIX}-definition"
           count: 1
           launch-type: FARGATE
           awsvpc: true
