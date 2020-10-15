@@ -65,9 +65,38 @@ commands:
                                 --format progress \
                                 $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
 
+  build_and_push_docker_image:
+    steps:
+      - aws-ecr/build-and-push-image:
+          account-url: AWS_ECR_ACCOUNT_URL
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          region: AWS_DEFAULT_REGION
+          repo: "${AWS_RESOURCE_NAME_PREFIX}"
+          dockerfile: docker/pre/app/Dockerfile
+          tag: "${CIRCLE_SHA1}"
+
+      - aws-ecs/deploy-service-update:
+          requires:
+            - aws-ecr/build-and-push-image
+          aws-region: AWS_DEFAULT_REGION
+          family: "${AWS_RESOURCE_NAME_PREFIX}-service"
+          cluster-name: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
+          container-image-name-updates: "container=${AWS_RESOURCE_NAME_PREFIX}-service,tag=${CIRCLE_SHA1}"
 
 
-
+  db_migrate_app:
+    steps:
+      - aws-ecs/run-task:
+          cluster: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
+          aws-region: AWS_DEFAULT_REGION
+          task-definition: "${AWS_RESOURCE_NAME_PREFIX}-definition"
+          count: 1
+          launch-type: FARGATE
+          awsvpc: true
+          subnet-ids: terraform-subnet-1,terraform-subnet-2
+          security-group-ids: terraform-security-group-app,terraform-security-group-rds
+          overrides: "{\\\"containerOverrides\\\":[{\\\"name\\\": \\\"terraform-container\\\",\\\"command\\\": [\\\"bundle\\\", \\\"exec\\\", \\\"rake\\\", \\\"db:migrate\\\", \\\"RAILS_ENV=test\\\"]}]}"
 
 
 
@@ -106,6 +135,8 @@ jobs:
     executor: default
     steps:
       - setup_remote_docker
+      - build_and_push_docker_image
+      - db_migrate_app
 
 
 
@@ -118,33 +149,6 @@ workflows:
     jobs:
       - rspec
       - deploy_app
-      - aws-ecr/build-and-push-image:
-          account-url: AWS_ECR_ACCOUNT_URL
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          region: AWS_DEFAULT_REGION
-          repo: "${AWS_RESOURCE_NAME_PREFIX}"
-          dockerfile: docker/pre/app/Dockerfile
-          tag: "${CIRCLE_SHA1}"
-
-      - aws-ecs/deploy-service-update:
-          requires:
-            - aws-ecr/build-and-push-image
-          aws-region: AWS_DEFAULT_REGION
-          family: "${AWS_RESOURCE_NAME_PREFIX}-service"
-          cluster-name: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
-          container-image-name-updates: "container=${AWS_RESOURCE_NAME_PREFIX}-service,tag=${CIRCLE_SHA1}"
-
-      - aws-ecs/run-task:
-          cluster: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
-          aws-region: AWS_DEFAULT_REGION
-          task-definition: "${AWS_RESOURCE_NAME_PREFIX}-definition"
-          count: 1
-          launch-type: FARGATE
-          awsvpc: true
-          subnet-ids: terraform-subnet-1,terraform-subnet-2
-          security-group-ids: terraform-security-group-app,terraform-security-group-rds
-          overrides: "{\\\"containerOverrides\\\":[{\\\"name\\\": \\\"terraform-container\\\",\\\"command\\\": [\\\"bundle\\\", \\\"exec\\\", \\\"rake\\\", \\\"db:migrate\\\", \\\"RAILS_ENV=test\\\"]}]}"
           # filters:
           #   # github devブランチ
           #   branchs:
