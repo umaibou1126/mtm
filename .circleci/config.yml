@@ -142,8 +142,8 @@ workflows:
           count: 1
           launch-type: FARGATE
           awsvpc: true
-          subnet-ids: terraform-subnet-1,terraform-subnet-2
-          security-group-ids: terraform-security-group-app,terraform-security-group-rds
+          subnet-ids: subnet-065666fdbf7694743,subnet-0c35b5f0e4f67feb0
+          security-group-ids: sg-020e9d070063341f7,sg-0e8078ed8f2836f72
           overrides: "{\\\"containerOverrides\\\":[{\\\"name\\\": \\\"${AWS_RESOURCE_NAME_PREFIX}-container\\\",\\\"command\\\": [\\\"bundle\\\", \\\"exec\\\", \\\"rake\\\", \\\"db:migrate\\\", \\\"RAILS_ENV=test\\\"]}]}"
 
           # filters:
