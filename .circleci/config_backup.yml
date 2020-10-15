@@ -2,18 +2,21 @@ version: 2.1
 orbs:
   aws-ecr: circleci/aws-ecr@6.12.2
   aws-ecs: circleci/aws-ecs@1.3.0
+  aws-cli: circleci/aws-cli@1.3.0
 
 
 # executors: ジョブのステップ実行する環境を定義
 executors:
   default:
     docker:
+      # circleci/ruby:2.7.1-stretchでエラー
       - image: circleci/ruby:2.7.1-node-browsers-legacy
         environment:
           BUNDLE_JOBS: 3
           BUNDLE_RETRY: 3
           BUNDLE_PATH: vendor/bundle
           RAILS_ENV: test
+          # database.ymlの"DATABASE_HOST"は、localhost
           DATABASE_HOST: '127.0.0.1'
           DB_USERNAME: 'root'
           DB_PASSWORD: 'password'
@@ -88,6 +91,7 @@ jobs:
     executor: default
     steps:
       - checkout
+      # commandsで指定した"bundle_install_rspec"を実行
       - bundle_install_rspec
       - vue-installation
 
@@ -104,6 +108,7 @@ jobs:
 workflows:
   version: 2
   build-and-deploy:
+  # jobsで定義したジョブ
     jobs:
       - rspec
       - deploy_app:
@@ -140,6 +145,11 @@ workflows:
           subnet-ids: subnet-065666fdbf7694743,subnet-0c35b5f0e4f67feb0
           security-group-ids: sg-020e9d070063341f7,sg-0e8078ed8f2836f72
           overrides: "{\\\"containerOverrides\\\":[{\\\"name\\\": \\\"${AWS_RESOURCE_NAME_PREFIX}-container\\\",\\\"command\\\": [\\\"bundle\\\", \\\"exec\\\", \\\"rake\\\", \\\"db:migrate\\\", \\\"RAILS_ENV=test\\\"]}]}"
+
+          # filters:
+          #   # github devブランチ
+          #   branchs:
+          #     only: dev
 
 
 

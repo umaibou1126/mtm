@@ -18,7 +18,7 @@ resource "aws_cloudwatch_log_group" "terraform-log-group" {
 # ====================
 resource "aws_ecs_task_definition" "terraform-task-definition" {
   //family：複数のタスク定義をまとめる際に使用
-  family                   = "terraform-family"
+  family                   = "terraform-service"
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   task_role_arn            = "arn:aws:iam::${var.aws_account_id}:role/ecsTaskExecutionRole"
