@@ -144,7 +144,7 @@ workflows:
           awsvpc: true
           subnet-ids: terraform-subnet-1,terraform-subnet-2
           security-group-ids: terraform-security-group-app,terraform-security-group-rds
-          overrides: "{\\\"containerOverrides\\\":[{\\\"name\\\": \\\"terraform-container\\\",\\\"command\\\": [\\\"bundle\\\", \\\"exec\\\", \\\"rake\\\", \\\"db:migrate\\\", \\\"RAILS_ENV=test\\\"]}]}"
+          overrides: "{\\\"containerOverrides\\\":[{\\\"name\\\": \\\"${AWS_RESOURCE_NAME_PREFIX}-container\\\",\\\"command\\\": [\\\"bundle\\\", \\\"exec\\\", \\\"rake\\\", \\\"db:migrate\\\", \\\"RAILS_ENV=test\\\"]}]}"
 
           # filters:
           #   # github devブランチ
