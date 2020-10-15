@@ -101,11 +101,11 @@ jobs:
       # commandsで指定した"bundle_install_rspec"を実行
       - bundle_install_rspec
 
-    # deploy_app:
-    #   working_directory: ~/app
-    #   executor: default
-    #   steps:
-  - setup_remote_docker
+  deploy_app:
+    working_directory: ~/app
+    executor: default
+    steps:
+      - setup_remote_docker
 
   - aws-ecr/build-and-push-image:
       account-url: AWS_ECR_ACCOUNT_URL
@@ -144,10 +144,11 @@ workflows:
   # jobsで定義したジョブ
     jobs:
       - rspec
-      - setup_remote_docker
+      - deploy_app
       - aws-ecr/build-and-push-image
       - aws-ecs/deploy-service-update
       - aws-ecs/run-task
+
           # filters:
           #   # github devブランチ
           #   branchs:
