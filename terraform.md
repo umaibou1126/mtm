@@ -152,3 +152,7 @@
     - $ circleci build --job aws-ecr/build-and-push-image .circleci/config.yml
     - CircleCIのAdvanced SettingsのPass secrets to builds from forked pull requestsがOff
 
+## aws cli
+ - $ aws ecs list-task-definitions --region ap-northeast-1
+ - $ aws ecr get-login-password --profile [profile name] | docker login --username AWS --password-stdin [account].dkr.ecr.[region].amazonaws.com/[repositry name]
+ - aws ecr get-login-password --profile ecr | docker login --username AWS --password-stdin 972418215193.dkr.ecr.ap-northeast-1.amazonaws.com/terraform
