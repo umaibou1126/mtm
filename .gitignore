@@ -66,5 +66,8 @@ dump.rdb
 terraform.tfstate
 ping.rb
 /storage
-.gitignore
 babel.config.js
+.browserslistrc
+postcss.config.js
+config.ru
+/git
