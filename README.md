@@ -1,7 +1,7 @@
 
 ## 構成図
 
-![構成図-Page-1 (1)](https://user-images.githubusercontent.com/57199117/96358106-6f6d2300-113e-11eb-9528-b12d474f2d99.png)
+![構成図-Page-1 (2)](https://user-images.githubusercontent.com/57199117/96358171-15209200-113f-11eb-8291-931e2a0481db.png)
 
 ### バックエンド
 
