@@ -1,7 +1,7 @@
 
 ## 構成図
 
-[![Image from Gyazo](https://i.gyazo.com/f4236209a4ba5eae050c7effad7c501f.png)](https://gyazo.com/f4236209a4ba5eae050c7effad7c501f)
+![構成図-Page-1 (1)](https://user-images.githubusercontent.com/57199117/96358106-6f6d2300-113e-11eb-9528-b12d474f2d99.png)
 
 ### バックエンド
 
