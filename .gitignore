@@ -71,3 +71,5 @@ babel.config.js
 postcss.config.js
 config.ru
 /git
+/config/credentials.yml.enc
+/config/secrets.yml
