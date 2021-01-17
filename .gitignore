@@ -51,6 +51,12 @@ yarn-debug.log*
 /terraform/.terraform/*
 /terraform/terraform.tfstate.backup
 /terraform/terraform.tfvars
+/terraform/files
+/terraform/acm.tf
+/terraform/backend.tf
+
+# circleci
+/.circleci/config.yml
 
 # env
 .env
