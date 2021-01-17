@@ -1,6 +1,6 @@
 [
     {
-        "image": "972418215193.dkr.ecr.ap-northeast-1.amazonaws.com/production_app-0924:latest",
+        "image": "XXX:latest",
         "logConfiguration": {
             "logDriver": "awslogs",
             "options": {

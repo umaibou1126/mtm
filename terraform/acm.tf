@@ -2,8 +2,8 @@
 # ACM
 # ====================
 resource "aws_acm_certificate" "terraform-acm" {
-  domain_name               = "portfoliough.com"
-  subject_alternative_names = ["*.portfoliough.com"]
+  domain_name               = "XXX.com"
+  subject_alternative_names = ["*.XXX.com"]
   validation_method         = "DNS"
 
   lifecycle {

@@ -7,10 +7,10 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket                  = "terraform-file-0917"
+    bucket                  = "XXX"
     key                     = "terraform.tfstate"
     region                  = "ap-northeast-1"
-    shared_credentials_file = "~/.aws/credentials"
+    shared_credentials_file = "~/.aws/XXX"
     profile                 = "s3-profile"
   }
 }
