@@ -157,6 +157,6 @@
  - aws ecs list-clusters
  - aws ecs register-task-definition --family production-app-1004-service  --cli-input-json file://production-app-1004.json
  - ECRログイン
-   - aws ecr get-login-password --profile ecr | docker login --username AWS --password-stdin 972418215193.dkr.ecr.ap-northeast-1.amazonaws.com/terraform
+   - aws ecr get-login-password --profile ecr | docker login --username AWS --password-stdin XXXXXXXXXXXX.dkr.ecr.ap-northeast-1.amazonaws.com/terraform
    - $ aws ecr get-login-password --profile [profile name] | docker login --username AWS --password-stdin [account].dkr.ecr.[region].amazonaws.com/[repositry name]
 
