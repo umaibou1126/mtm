@@ -37,8 +37,8 @@
     - docker tag ca4b8e3a4857 umaibou1126/prod_app-8
     - docker images
     - docker push umaibou1126/prod_app
-    - docker tag umaibou1126/prod_app:latest 972418215193.dkr.ecr.ap-northeast-1.amazonaws.com/ecs-test-20200919:latest
-    - docker push 972418215193.dkr.ecr.ap-northeast-1.amazonaws.com/ecs-test-20200919:latest
+    - docker tag umaibou1126/prod_app:latest XXXXXXXXXXXX.dkr.ecr.ap-northeast-1.amazonaws.com/ecs-test-20200919:latest
+    - docker push XXXXXXXXXXX.dkr.ecr.ap-northeast-1.amazonaws.com/ecs-test-20200919:latest
 
 
 ## git
